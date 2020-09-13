@@ -69,17 +69,17 @@ def create_app():
   app = Flask(__name__, static_url_path='')
   app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///CP_DATABASE.db'
   app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-  app.config['SECRET_KEY'] = os.getenv("APP_KEY")
-  app.config['RECAPTCHA_PUBLIC_KEY'] = os.getenv("RE_SITE_KEY")
-  app.config['RECAPTCHA_PRIVATE_KEY'] = os.getenv("RE_SITE_SECRET_KEY")
+  app.config['SECRET_KEY'] = os.environ["APP_KEY"]
+  app.config['RECAPTCHA_PUBLIC_KEY'] = os.environ["RE_SITE_KEY"]
+  app.config['RECAPTCHA_PRIVATE_KEY'] = os.environ["RE_SITE_SECRET_KEY"]
   app.config['UPLOADED_IMAGES_DEST'] = 'uploads/images'
   app.config['MAIL_SERVER'] = 'smtp.gmail.com'
   app.config['MAIL_PORT'] = 465
   app.config['MAIL_USE_TLS'] = False
   app.config['MAIL_USE_SSL'] = True
-  app.config['MAIL_USERNAME'] = os.getenv("EMAIL_USER")
-  app.config['MAIL_PASSWORD'] = os.getenv("EMAIL_PASS")
-  app.config['MAIL_DEFAULT_SENDER'] = ('Compile Projects Support', os.getenv("EMAIL_USER"))
+  app.config['MAIL_USERNAME'] = os.environ["EMAIL_USER"]
+  app.config['MAIL_PASSWORD'] = os.environ["EMAIL_PASS"]
+  app.config['MAIL_DEFAULT_SENDER'] = ('Compile Projects Support', os.environ["EMAIL_USER"])
   app.config['MAIL_MAX_EMAILS'] = None
   app.config['MAIL_ASCII_ATTACHMENTS'] = False
   CORS(app)
@@ -222,7 +222,7 @@ def premium_buy():
   link = url_for('profile_page', _external = True)
   msg_2.html = render_template('mail_prem.html', name = current_user.first_name, absolute_total = absolute_total, monthly_total = 0, down = 0,about_us_link = about_us_link, contact_us_link = contact_us_link, privacy_link = privacy_link, FAQ_link = FAQ_link, FB_link = FB_link, Twit_link = Twit_link, IG_link = IG_link, GIT_link = GIT_link,icons_8_link=icons_8_link, link = link)
   mail.send(msg_2)
-  msg_ky = Message(subject= current_user.first_name + " Made An Order!", recipients=[os.getenv("EMAIL_USER")])
+  msg_ky = Message(subject= current_user.first_name + " Made An Order!", recipients=[os.environ["EMAIL_USER"]])
   msg_ky.html = render_template('mail_kyle_prem.html', name = current_user.first_name, email = current_user.email,number = current_user.phone_number , absolute_total = absolute_total, monthly_total = 0, down = 0, about_us_link = about_us_link, contact_us_link = contact_us_link, privacy_link = privacy_link, FAQ_link = FAQ_link, FB_link = FB_link, Twit_link = Twit_link, IG_link = IG_link, GIT_link = GIT_link,icons_8_link = icons_8_link)
   mail.send(msg_ky)
   message = Markup("<strong> ACCOUNT UPGRADE SUCCESSFULL! </strong>")
@@ -484,7 +484,7 @@ def admin_send_mail():
       body =  data['email_body']
       bot =  data['email_bottom']
       admin_name = current_user.first_name
-      msg = Message(subject = sub, recipients=[email], sender=[admin_name+' From Compile Projects', os.getenv("EMAIL_USER")])
+      msg = Message(subject = sub, recipients=[email], sender=[admin_name+' From Compile Projects', os.environ["EMAIL_USER"]])
       about_us_link = url_for('aboutus', _external = True)
       contact_us_link = url_for('message_us', _external = True)
       privacy_link = url_for('legal', _external = True)
@@ -936,7 +936,7 @@ def checkout():
   icons_8_link = url_for('icons_8', _external = True)
   msg.html = render_template('mail_layout.html', name = current_user.first_name, absolute_total = absolute_total, monthly_total = monthly_total, down = downpayment,about_us_link = about_us_link, contact_us_link = contact_us_link, privacy_link = privacy_link, FAQ_link = FAQ_link, FB_link = FB_link, Twit_link = Twit_link, IG_link = IG_link, GIT_link = GIT_link,icons_8_link=icons_8_link)
   mail.send(msg)
-  msg_ky = Message(subject= current_user.first_name + " Made An Order!", recipients=[os.getenv("EMAIL_USER")])
+  msg_ky = Message(subject= current_user.first_name + " Made An Order!", recipients=[os.environ["EMAIL_USER"]])
   msg_ky.html = render_template('mail_kyle.html', name = current_user.first_name, email = current_user.email,number = current_user.phone_number,  absolute_total = absolute_total, monthly_total = monthly_total, down = downpayment,about_us_link = about_us_link, contact_us_link = contact_us_link, privacy_link = privacy_link, FAQ_link = FAQ_link, FB_link = FB_link, Twit_link = Twit_link, IG_link = IG_link, GIT_link = GIT_link,icons_8_link = icons_8_link, list_x = list_x)
   mail.send(msg_ky)
   session['ShoppingCart'].clear()
