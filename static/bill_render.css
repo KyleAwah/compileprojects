@@ -1,0 +1,123 @@
+html {
+     margin: 0;
+     padding: 0;
+     overflow: hidden;
+ }
+
+ body {
+     background-color: white;
+     color: black;
+     position: absolute;
+     width: 100%;
+     height: 100%;
+     overflow: auto;
+     font-size: 40;
+     font-size: 40;
+     font-family: "Lato", sans-serif;
+     
+ }
+
+ * {
+     box-sizing: border-box;
+     padding: 0px;
+     margin: 0px;
+ }
+
+.entire_invoice {
+   // max-width: 600px;
+   // border: 5px solid black;
+}
+
+#logo {
+    height: 70px;
+}
+
+#logo_holder {
+    text-align: center;
+}
+
+#invoice_num {
+    text-align: center;
+    font-size: 18px;
+}
+
+.bill_line {
+    font-size: 22px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#top_left {
+    text-align: center;
+}
+
+.items_holder {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#final_holder {
+    text-align: center;
+}
+
+.item_table {
+    width: 100%;
+}
+
+.prod_header {
+    text-align: left;
+}
+
+.amt_header {
+    text-align: right;
+}
+
+.item_name {
+    text-align: left;
+}
+
+.item_price_due {
+    text-align: right;
+}
+
+.receipt_header {
+    font-size: 20px;
+    text-align: center;
+}
+
+.vat_section {
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: right;
+}
+
+#vat_header {
+    font-size: 20px;
+}
+
+#vat_price {
+    font-size: 20px;
+}
+
+#policy_para {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#barcode {
+ height: 120px;   
+}
+
+.barcode_holder {
+    text-align: center;
+}
+
+#final_price {
+    color: red;
+    font-size: 40px;
+}
+
+.thanks {
+    text-align: center;
+    font-size: 20px;
+}

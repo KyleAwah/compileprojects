@@ -1,0 +1,182 @@
+html {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+body {
+    background-color: white;
+    color: black;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    font-size: 40;
+    font-size: 40;
+    font-family: "Lato", sans-serif;
+
+}
+
+* {
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+}
+
+.hold_middle {
+    padding: 50px;
+    padding-bottom: 10px;
+}
+
+.middle_pannel {
+    background-color: #0006;
+    border-radius: 25px;
+    padding: 25px;
+    color: white;
+}
+
+.main_logo {
+    height: 70px;
+}
+
+.hold_logo_main {
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.order_recieved_text {
+    font-size: 22px;
+    padding-top: 15px;
+}
+
+.mail_bottom {
+    text-align: center;
+    padding-top: 60px;
+}
+
+.bottom_para {
+    font-size: 18px;
+    text-align: center;
+    padding-top: 20px;
+}
+
+.bottom_logo {
+    height: 40px;
+}
+
+.footer_title {
+    font-size: 16px;
+    padding-bottom: 10px;
+}
+
+.mini_links {
+    font-size: 14px;
+    transition: 300ms;
+}
+
+.mini_links:hover {
+    cursor: pointer;
+    color: pink;
+}
+
+
+.links {
+    padding-bottom: 20px;
+}
+
+.website {
+    font-size: 17px;
+    padding-bottom: 15px;
+    color: black;
+}
+
+.social_logo {
+    height: 40px;
+}
+
+.social_logo:hover {
+    cursor: pointer;
+}
+
+.footer_bottom_link {
+    transition: 300ms;
+}
+
+.footer_bottom_link:hover {
+    cursor: pointer;
+    color: pink;
+}
+
+.line {
+    height: 3px;
+    background-color: white;
+}
+
+.item {
+    display: flex;
+    padding-bottom: 20px;
+}
+
+.item_title {
+    font-size: 20px;
+    flex: 1;
+    text-align: left;
+}
+
+.price_title {
+    font-size: 20px;
+    flex: 1;
+    text-align: right;
+}
+
+.finals {
+    padding-top: 10px;
+    text-align: right;
+}
+
+.total_title {
+    font-size: 22px;
+}
+
+.downpayment_holder {
+    display: flex;
+    padding-top: 20px;
+}
+
+.downpayment_name {
+    flex: 1;
+    text-align: left;
+    font-size: 22px;
+    padding-top: 10px;
+}
+
+.downpayment_price {
+    flex: 1;
+    text-align: right;
+}
+
+.due {
+    padding: 10px;
+    background-color: pink;
+    border-radius: 25px;
+    font-size: 25px;
+    font-size: 22px;
+}
+
+.total_price {
+    font-size: 22px;
+}
+
+.ordered_items {
+    text-align: center;
+    font-size: 25px;
+    padding-bottom: 20px;
+}
+
+.monthly {
+    font-size: 15px;
+}
+
+.monthly_total {
+    font-size: 16px;
+}
