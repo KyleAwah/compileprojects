@@ -484,7 +484,7 @@ def admin_send_mail():
       body =  data['email_body']
       bot =  data['email_bottom']
       admin_name = current_user.first_name
-      msg = Message(subject = sub, recipients=[email], sender=[admin_name+' From Compile Projects', os.environ["EMAIL_USER"]])
+      msg = Message(subject = sub, recipients=[email], sender=[admin_name+' from Compile Projects', os.environ["EMAIL_USER"]])
       about_us_link = url_for('aboutus', _external = True)
       contact_us_link = url_for('message_us', _external = True)
       privacy_link = url_for('legal', _external = True)
