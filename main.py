@@ -69,17 +69,17 @@ def create_app():
   app = Flask(__name__, static_url_path='')
   app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///CP_DATABASE.db'
   app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-  app.config['SECRET_KEY'] = MYSECRET
-  app.config['RECAPTCHA_PUBLIC_KEY'] = 6LduBMkZAAAAAChzfVqASEX2vCn3bQXW3dIy_1lZ
-  app.config['RECAPTCHA_PRIVATE_KEY'] = 6LduBMkZAAAAAOChpzV-iVFy6CK7HOaXuKjxxUCK
+  app.config['SECRET_KEY'] = os.getenv("APP_KEY")
+  app.config['RECAPTCHA_PUBLIC_KEY'] = os.getenv("RE_SITE_KEY")
+  app.config['RECAPTCHA_PRIVATE_KEY'] = os.getenv("RE_SITE_SECRET_KEY")
   app.config['UPLOADED_IMAGES_DEST'] = 'uploads/images'
   app.config['MAIL_SERVER'] = 'smtp.gmail.com'
   app.config['MAIL_PORT'] = 465
   app.config['MAIL_USE_TLS'] = False
   app.config['MAIL_USE_SSL'] = True
-  app.config['MAIL_USERNAME'] = compileprojects@gmail.com
-  app.config['MAIL_PASSWORD'] = tcifipyqtjecwffg
-  app.config['MAIL_DEFAULT_SENDER'] = ('Compile Projects Support', tcifipyqtjecwffg)
+  app.config['MAIL_USERNAME'] = os.getenv("EMAIL_USER")
+  app.config['MAIL_PASSWORD'] = os.getenv("EMAIL_PASS")
+  app.config['MAIL_DEFAULT_SENDER'] = ('Compile Projects Support', os.getenv("EMAIL_USER"))
   app.config['MAIL_MAX_EMAILS'] = None
   app.config['MAIL_ASCII_ATTACHMENTS'] = False
   CORS(app)
