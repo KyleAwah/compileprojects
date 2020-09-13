@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title> Invoice Maker | Your Invoice </title>
+    <link rel="icon" href="logo/circle_logo.png">
+    <meta name="viewport" content="width=device-width , initial-scale=1">
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='invoice_render.css') }} ">
+    <script src="scroll-out.js"> </script>
+</head>
+
+
+<body>
+    <div id="invoice_top">
+
+        <div id="top_left">
+            <div id="logo_holder">
+              <img id="logo" src="{{session['data'].logo}}">
+            </div>
+
+            <h1 id="invoice_label"> INVOICE </h1>
+            <p id="invoice_num"> #{{session['data'].invoice_number}} </p>
+            <br>
+            <h4 id="invoice_num"> {{session['data'].invoice_date}} </h4>
+        </div>
+
+        <div id="top_right">
+            <h3> {{session['data'].buisness_name}} </h3>
+            <P> {{session['data'].buisness_address}} </P>
+            <P> {{session['data'].buisness_email}} </P>
+
+            <br>
+            <h3> {{session['data'].client_name}} </h3>
+            <P> {{session['data'].client_address}} </P>
+						<P> {{session['data'].client_email}} </P>
+        </div>
+    </div>
+		<br><br>
+
+    <div class="items_holder">
+        <div class="items top_item">
+
+            <table class="item_table">
+                <tr class="headers">
+                    <th class="prod_header">
+                        PRODUCT
+                    </th>
+                    <th class="qty_header">
+                        QTY
+                    </th>
+                    <th class="price_header">
+                        PRICE PER UNIT
+                    </th>
+                    <th class="amt_header">
+                        AMOUNT DUE
+                    </th>
+                </tr>
+
+								{% for field in session['data'].all_products %}
+                <tr class="item_list">
+                    <td class="item_name">
+                        {{field.Name}}
+                    </td>
+                    <td class="item_qty">
+                        {{field.QTY}}
+                    </td>
+                    <td class="item_price_per">	
+											  {% if session['data'].currency == "TTD" %}
+                           $
+												{% endif %}
+												{% if session['data'].currency == "USD" %}
+                           $
+												{% endif %}
+												{% if session['data'].currency == "CAD" %}
+                           $
+												{% endif %}
+												{% if session['data'].currency == "GBP" %}
+                           £
+												{% endif %}
+												{% if session['data'].currency == "EURO" %}
+                           €
+												{% endif %}		
+
+												{{field.Cost_Per}}
+                    </td>
+										<td class="item_price_per">
+												{% if session['data'].currency == "TTD" %}
+                           $
+												{% endif %}
+												{% if session['data'].currency == "USD" %}
+                           $
+												{% endif %}
+												{% if session['data'].currency == "CAD" %}
+                           $
+												{% endif %}
+												{% if session['data'].currency == "GBP" %}
+                           £
+												{% endif %}
+												{% if session['data'].currency == "EURO" %}
+                           €
+												{% endif %}
+
+												{{field.Total_This}}
+                    </td>
+                </tr>
+								{% endfor %}
+            </table>
+
+						{% if stat == "YES" %}
+						<div class="line_holder">
+              <div class="line"></div>
+            </div>
+
+					  <h5 id="vat_header"> VAT ({{session['data'].vat_per}}%) </h5>
+            <h5 id="vat_price"> 
+							+
+							{% if session['data'].currency == "TTD" %}
+                $
+							{% endif %}
+							{% if session['data'].currency == "USD" %}
+                $
+							{% endif %}
+							{% if session['data'].currency == "CAD" %}
+                $
+							{% endif %}
+							{% if session['data'].currency == "GBP" %}
+                £
+							{% endif %}
+							{% if session['data'].currency == "EURO" %}
+                €
+							{% endif %}
+
+							{{session['data'].vat_num}}
+						</h5>
+						{% endif %}
+
+        </div>
+    </div>
+
+    <div class="items_holder">
+        <div class="bottom_item"> </div>
+    </div>
+
+    <div class="items_holder">
+        <div class="items">
+					<p id="policy_para">
+                {{session['data'].invoice_policy}}
+            </p>
+				</div>
+        <div id="final_holder">
+            <h1 id="total_header"> TOTAL DUE </h1>
+            <h1 id="final_price"> 
+							{% if session['data'].currency == "TTD" %}
+                $
+							{% endif %}
+							{% if session['data'].currency == "USD" %}
+                $
+							{% endif %}
+							{% if session['data'].currency == "CAD" %}
+                $
+							{% endif %}
+							{% if session['data'].currency == "GBP" %}
+                £
+							{% endif %}
+							{% if session['data'].currency == "EURO" %}
+                €
+							{% endif %}
+
+							{{session['data'].overall_total}}
+							({{session['data'].currency}}) 
+						</h1>
+        </div>
+    </div>
+
+</body>
+
+</html>

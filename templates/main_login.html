@@ -1,0 +1,94 @@
+{% from "_formhelpers.html" import render_field %}
+
+{% extends "default.html" %}
+{% block title %} | Login {% endblock %}
+
+{% block head_tags %} 
+<style>
+#forgot{
+	transition: 300ms;
+}
+
+#forgot:hover{
+	cursor:pointer;
+	color: pink;
+}
+</style>
+{% endblock %}
+
+{% block divheader %}
+<div id="main_cart">
+{% endblock %}
+
+{{ super() }}
+
+{% block content %}
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <br>
+        <div id="ALERT" class="alert_good">
+            {% for message in messages %}
+            <span class="closebtn" onclick="this.parentElement.style.display='none';"> &times; </span>
+            {{ message }}
+            {% endfor %}
+        </div>
+        <br>
+        {% endif %}
+        {% endwith %}
+
+        <div id="productpage_holder">
+          
+            <div class="login_middle">
+               
+               <div class="login_side">
+                   <h1 class="welcome"> WELCOME BACK! </h1>
+                   <p class="welcome_para">
+                       Please enter the credentials for your Compile Projects account to continue. If you have forgotten your password you may reset it through the link below the login button. Optionally if you do not have a Compile Projects account you may sign up for one through the button below the login button. We hope you'll enjoy your stay
+                   </p>
+               </div>
+               
+                <div class="login_pannel">
+                    <div class="login_contents">
+                        <h1 class="login_header"> LOGIN </h1>
+                        <form class="login_form" action="/login" method="POST">
+                            {{ form.csrf_token }}
+
+                            {{ render_field(form.email) }}
+                            <br><br>
+                            {{ render_field(form.password) }}
+														<br><br>
+														{{ render_field(form.re) }}
+														<br>
+                            <div class="login_btn_holder">
+                                {{ form.submit }}
+                            </div>
+                        </form>
+                        <div class="cart_bottom_cals">
+													  <span id="forgot" onclick="window.open('/forgot_pass', '_self')"> Forgot Your Password? </span>
+														<br><br><br>
+                            Don't already have an existing account with us? No Problem!
+                            <br><br>
+                            <div style="color:white">
+                                <span class="product" onclick="window.open('/signup', '_self')">
+                                    SIGN UP
+                                    <img src="icons/down.png" class="across">
+                                </span>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <br><br>
+{% endblock %}
+
+{% block footer %}
+<div class="footer footer_special">
+{% endblock %}
+
+
+{% block animations %}
+
+{% endblock %}

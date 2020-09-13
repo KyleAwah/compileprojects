@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title> Receipt Maker | Your Receipt </title>
+    <link rel="icon" href="logo/white_mini_transparent.png">
+    <meta name="viewport" content="width=device-width , initial-scale=1">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bill_render.css') }}">
+</head>
+
+
+<body>
+
+    <div class="entire_invoice">
+
+        <div id="invoice_top">
+            <div id="logo_holder">
+                <img id="logo" src="{{session['data'].logo}}">
+            </div>
+            <br>
+            <h4 id="invoice_num"> {{session['data'].invoice_date}} </h4>
+            <h4 id="invoice_num"> {{session['data'].buisness_address}} </h4>
+
+            <br>
+            <span class="bill_line"> ========================================== </span>
+            <h1 class="receipt_header">RECEIPT</h1>
+            <span class="bill_line"> ========================================== </span>
+        </div>
+        <br>
+        <div class="items_holder">
+
+            <table class="item_table">
+                <tr class="headers">
+                    <th class="prod_header">
+                        PRODUCT
+                    </th>
+
+                    <th class="amt_header">
+                        AMOUNT DUE
+                    </th>
+                </tr>
+							
+								{% for field in session['data'].all_products %}
+                <tr class="item_list">
+                    <td class="item_name">
+                        {{field.Name}} (x{{field.QTY}})
+                    </td>
+                    <td class="item_price_due">
+                        {% if session['data'].currency == "TTD" %}
+                           $
+												{% endif %}
+												{% if session['data'].currency == "USD" %}
+                           $
+												{% endif %}
+												{% if session['data'].currency == "CAD" %}
+                           $
+												{% endif %}
+												{% if session['data'].currency == "GBP" %}
+                           £
+												{% endif %}
+												{% if session['data'].currency == "EURO" %}
+                           €
+												{% endif %}
+												
+												{{field.Total_This}}
+                    </td>
+                </tr>
+								{% endfor %}
+            	</table>
+
+        </div>
+
+        <span class="bill_line"> ========================================== </span>
+
+				{% if stat == "YES" %}
+        <div class="vat_section">
+            <h5 id="vat_header"> VAT ({{session['data'].vat_per}}%) </h5>
+            <h5 id="vat_price"> 
+							+
+							{% if session['data'].currency == "TTD" %}
+               $
+							{% endif %}
+							{% if session['data'].currency == "USD" %}
+                $
+							{% endif %}
+							{% if session['data'].currency == "CAD" %}
+               $
+							{% endif %}
+							{% if session['data'].currency == "GBP" %}
+               £
+							{% endif %}
+							{% if session['data'].currency == "EURO" %}
+               €
+							{% endif %}
+
+							{{session['data'].vat_num}}
+							({{session['data'].currency}})
+						</h5>
+        </div>
+				{% endif %}
+
+        <div class="items_holder">
+            <div id="final_holder">
+                <h1 id="total_header"> TOTAL DUE </h1>
+                <h1 id="final_price"> 
+								{% if session['data'].currency == "TTD" %}
+                	$
+								{% endif %}
+								{% if session['data'].currency == "USD" %}
+                	$
+								{% endif %}
+								{% if session['data'].currency == "CAD" %}
+               	 $
+								{% endif %}
+								{% if session['data'].currency == "GBP" %}
+              	  £
+								{% endif %}
+								{% if session['data'].currency == "EURO" %}
+              	  €
+								{% endif %}
+
+								{{session['data'].overall_total}}
+								({{session['data'].currency}}) 
+								</h1>
+            </div>
+            
+            <br>
+            <h1 class="thanks"> 
+                THANK YOU FOR SHOPPING WITH 
+                <br>
+                {{session['data'].buisness_name}}
+            </h1>
+
+            <p id="policy_para">
+                {{session['data'].invoice_policy}}
+            </p>
+            <div class="barcode_holder">
+                <img id="barcode" src="{{ qrcode(qr) }}">
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

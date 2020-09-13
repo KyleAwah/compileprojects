@@ -1,0 +1,221 @@
+{% extends "default.html" %}
+{% block title %} | Ordering Process {% endblock %}
+
+{% block head_tags %} 
+<style>
+	.wrapper{
+		display:flex;
+	}
+
+	.box{
+		flex: 1;
+		padding: 20px;
+		text-align:center;
+	}
+
+	.step_num{
+		font-size: 60px;
+		color: pink;
+	}
+
+	.step_label{
+		font-size: 25px;
+		padding-bottom:10px;
+	}
+
+	.step_desc{
+		padding-top: 10px;
+		font-size: 18px;
+	}
+
+	.step_img_holder{
+		padding-left: 50px;
+		padding-right: 50px;
+	}
+	
+	.step_img{
+		max-width: 100%;
+	}
+
+	.grey{
+		color:grey;
+		font-size: 15px;
+	}
+
+	.congrats{
+		font-size: 60px;
+	}
+
+	.congrats_mini{
+		font-size: 20px;
+	}
+
+	@media only screen and (max-width: 900px) {
+		.wrapper{
+			flex-direction: column;
+		}
+
+		.step_num{
+			font-size: 30px;
+		}
+
+		.step_img_holder{
+			padding-left: 0px;
+			padding-right: 0px;
+		}
+
+		.congrats{
+			font-size: 32px;
+			padding-top: 50px;
+		}
+
+		.congrats_mini{
+			font-size: 15px;
+		}
+
+		.box{
+			padding: 8px;
+			padding-top: 40px;
+		}
+	}
+</style>
+{% endblock %}
+
+{% block divheader %}
+<div id="main_products">
+{% endblock %}
+
+{{ super() }}
+
+{% block content %}
+        <div id="productpage_holder">
+            <div id="productpage_main_screen" class="top">
+                <div id="top_desc">
+										<h1 class="main_label"> ORDERING PROCESS </h1>
+                    <p class="top_desc prod_page_main_desc">
+                        Stunning software is our specialty, as such ordering this software should be as easy as using it. Our simple purchasing model is described below to ensure that purchasing one of our products is as simple as possible!
+												<br><br>
+												<span class="grey">
+													* All transactions on Compile Projects are subject to the purchasing policy agreement between Compile Projects and its customers.
+												</span>
+												<br>
+                        <br>
+												<br>
+                    </p>
+                    <div class="center_me">
+												<span class="product"  onclick="window.open('/products', '_self')">
+                            PRODUCTS
+                            <img src="icons/down.png" class="across">
+                        </span>
+												<br><br><br>
+												<span class="product"  onclick="window.open('/legal/purchase', '_self')">
+                            PURCHASING POLICIES
+                            <img src="icons/down.png" class="across">
+                        </span>
+                    </div>
+                    <br><br>
+                </div>
+
+            	<div class="wrapper">
+            		<div class="box">
+										<h1 class="step_num"> 1 </h1>
+									<h1 class="step_label"> ADD TO CART </h1>
+            			<div class="step_img_holder">
+										<img class="step_img" src="{{ url_for('static', filename='images/order_1.png') }}">
+            			</div>
+									<p class="step_desc">
+										Find the items you're looking for and add them to cart! 
+									</p>
+            		</div>
+         				<div class="box">
+									<h1 class="step_num"> 2 </h1>
+									<h1 class="step_label"> CREATE ACCOUNT </h1>
+									<div class="step_img_holder">
+										<img class="step_img" src="{{ url_for('static', filename='images/order_2.png') }}">
+            			</div>
+									<p class="step_desc">
+										Create a Compile Projects Account or login with an existing Compile Projects Account. This is how we'll be able to contact you for further information with regards to your purchase.
+									</p>
+            		</div>
+								<div class="box">
+									<h1 class="step_num"> 3 </h1>
+									<h1 class="step_label"> CHECKOUT / DOWNPAYMENT </h1>
+									<div class="step_img_holder">
+										<img class="step_img" src="{{ url_for('static', filename='images/order_3.png') }}">
+            			</div>
+								  <p class="step_desc">
+										Every purchase is subjected to a 20% downpayment for its creation to begin. Proceed to checkout to place an order for your products. An employee will contact you via your email after this is done
+									</p>
+            		</div>
+            	</div>
+
+            	<div class="wrapper">
+            		<div class="box">
+								  <h1 class="step_num"> 4 </h1>
+									<h1 class="step_label"> CREATION OF ITEMS </h1>
+									<div class="step_img_holder">
+										<img class="step_img" src="{{ url_for('static', filename='images/prem_1.png') }}">
+            			</div>
+									<p class="step_desc">
+										Upon completion of the previous steps, creation of your software product is commenced. 
+										<br><br>
+										<span class="grey">
+											* Completion and delivery times are based on current cue and may fluctuate. Please feel free to contact us for inquires about the estimated delivery date of your product.
+										</span>
+									</p>
+            		</div>
+         				<div class="box">
+									<h1 class="step_num"> 5 </h1>
+									<h1 class="step_label"> FINAL PAYMENT </h1>
+									<div class="step_img_holder">
+										<img class="step_img" src="{{ url_for('static', filename='images/spark_mac.png') }}">
+            			</div>
+									<p class="step_desc">
+										When completion of your software product has arrived you will be notified via email to make the final payment of 80% of the cost for your product.
+										<br><br>
+										<span class="grey">
+											* Compile Projects holds the right to not deliver a product in circumstances where the customer refuses to pay the final 80% of the total cost of their product.
+										</span>
+									</p>
+            		</div>
+            	</div>
+
+
+
+							<div>
+								<h1 class="congrats"> CONGRATULATIONS! </h1>
+								<h1 class="congrats_mini"> YOU'VE MADE YOUR PURCHASE </h1>
+							</div>
+
+
+
+            </div>
+					</div>
+
+
+                
+          
+            <br><br><br>
+            		{% if current_user.is_authenticated == False %}
+		<div class="ad">
+      ADS GO HERE
+    </div>
+		{% endif %}
+
+		{% if current_user.is_premium == False %}
+		<div class="ad">
+      ADS GO HERE
+    </div>
+		{% endif %}
+
+        </div>
+{% endblock %}
+
+{% block footer %}
+<div class="footer footer_special">
+{% endblock %}
+
+
+{% block animations %}
+<!-- <script src="main_websites.js"></script> -->
+{% endblock %}

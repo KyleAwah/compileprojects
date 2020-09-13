@@ -1,0 +1,151 @@
+{% extends "default.html" %}
+{% block title %} | Products {% endblock %}
+
+{% block head_tags %} 
+<style>
+
+	#prem_item_1{
+		background-image: url(./images/prem_prod.png);
+    background-size: cover;
+	}
+
+@media only screen and (max-width: 900px) {
+	#top_desc{
+		display: none;
+	}
+
+	#productpage_holder{
+		padding: 0px;
+	}
+}
+</style>
+{% endblock %}
+
+{% block divheader %}
+<div id="main_products">
+{% endblock %}
+
+{{ super() }}
+
+{% block content %}
+        <div id="productpage_holder">
+            <div id="productpage_main_screen" class="top">
+                <div id="top_desc">
+										<h1 class="main_label"> PRODUCTS </h1>
+                    <p class="top_desc prod_page_main_desc">
+                        Stunning software is our specialty. Our products have been crafted through hundreds of hours of design, programming and testing with real users to ensure that they are of the highest quality from both an ergenomic and aesthetic perspective. Now they are ready to be put to use in your hands. We hope you'll enjoy them as much as we do!
+                        <br>
+                        <br>
+												<br>
+                    </p>
+                    <div class="center_me">
+												<span class="product"  onclick="window.open('/order', '_self')">
+                            ORDERING PROCESS
+                            <img src="icons/down.png" class="across">
+                        </span>
+												<br><br><br>
+												<span class="product"  onclick="window.open('/legal', '_self')">
+                            LEGAL
+                            <img src="icons/down.png" class="across">
+                        </span>
+												<br><br><br>
+												<span class="product"  onclick="window.open('/aboutus', '_self')">
+                            ABOUT US
+                            <img src="icons/down.png" class="across">
+                        </span>
+												
+                    </div>
+                    <br>
+                </div>
+            </div>
+						</div>
+
+
+                <div>
+                    <div>
+
+												{% if current_user.is_authenticated == True %}
+												{% if current_user.is_premium == False %}
+												<div id="prem_item_1" class="product_in_list" onclick="window.open('/premium', '_self')">
+                            <div id="item_contents">
+                                <h1 class="item_label">
+                                    PREMIUM <img src="icons/down.png" class="item_across">
+                                </h1>
+																 <h1 class="prod_price_label">
+                                    <span class="border_price"> BUY </span>
+                                </h1>
+                            </div>
+                        </div>
+												{% endif %}
+												{% endif %}
+
+                        <div id="buisness_item_1" class="product_in_list" onclick="window.open('/websites', '_self')">
+                            <div id="item_contents">
+                                <h1 class="item_label">
+                                    WEBSITES <img src="icons/down.png" class="item_across">
+                                </h1>
+																 <h1 class="prod_price_label">
+                                    <span class="border_price"> BUY </span>
+                                </h1>
+                            </div>
+                        </div>
+                        <div id="buisness_item_2" class="product_in_list" onclick="window.open('/filters', '_self')">
+                            <div id="item_contents">
+                                <h1 class="item_label">
+                                  FILTERS <img src="icons/down.png" class="item_across">
+                                </h1>
+																 <h1 class="prod_price_label">
+                                    <span class="border_price"> BUY </span>
+                                </h1>
+                            </div>
+                        </div>
+  
+                        <div id="buisness_item_3" class="product_in_list" onclick="window.open('/invoice', '_self')">
+                            <div id="item_contents">
+                                <h1 class="item_label">
+                                    INVOICE MAKER <img src="icons/down.png" class="item_across">
+                                </h1>
+																 <h1 class="prod_price_label">
+                                    <span class="border_price"> FREE </span>
+                                </h1>
+                            </div>
+                        </div>
+                        <div id="buisness_item_4" class="product_in_list" onclick="window.open('/bill', '_self')">
+                            <div id="item_contents">
+                                <h1 class="item_label">
+                                    RECEIPT MAKER <img src="icons/down.png" class="item_across">
+                                </h1>
+																 <h1 class="prod_price_label">
+                                    <span class="border_price"> FREE </span>
+                                </h1>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+          
+            <br><br><br>
+    {% if current_user.is_authenticated == False %}
+		<div class="ad">
+      ADS GO HERE
+    </div>
+		{% endif %}
+
+		{% if current_user.is_premium == False %}
+		<div class="ad">
+      ADS GO HERE
+    </div>
+		{% endif %}
+
+{% endblock %}
+
+{% block footer %}
+<div class="footer footer_special">
+{% endblock %}
+
+
+{% block animations %}
+<!-- <script src="main_websites.js"></script> -->
+{% endblock %}

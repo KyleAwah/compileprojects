@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title> 
+			COMPILE PROJECTS 
+			{% block title %} {% endblock %}
+		</title>
+    <link rel="icon" href="{{ url_for('static', filename='logo/circle_logo.png') }}">
+    <meta name="viewport" content="width=device-width , initial-scale=1">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+		{% block head_tags %} {% endblock %}
+
+		<style>
+			.footer_prem_icon{
+				height: 15px;
+			}
+
+			#mobile_menu {
+				z-index: 10000;
+			}
+		</style>
+</head>
+
+<body>
+    <script>
+        function openMenu() {
+            document.getElementById('mobile_menu').style.height = '110vh';
+            document.getElementById('close_btn').style.display = 'block';
+            document.getElementById('mobile_nav_list').style.display = 'block';
+        }
+
+        function closeMenu() {
+            document.getElementById('mobile_menu').style.height = '0vh';
+            document.getElementById('close_btn').style.display = 'none';
+            document.getElementById('mobile_nav_list').style.display = 'none';
+        }
+    </script>
+
+
+		<div class="EVERYTHING">
+
+
+		{% block divheader %}
+
+		{% endblock %}
+        <nav>
+            <img id="nav_logo" src="{{ url_for('static', filename='logo/white_mini_transparent.png') }} " onclick="window.open('/', '_self')">
+
+            <ul id="nav_menu">
+                <li class="menu_in nav_view" onclick="window.open('/products', '_self')"> <a> PRODUCTS </a> </li>
+                <li class="menu_in nav_view" onclick="window.open('/order', '_self')"> <a> ORDERING </a> </li>
+                <li class="menu_in nav_view" onclick="window.open('/aboutus', '_self')"> <a> ABOUT US </a> </li>
+								<li class="menu_in nav_view" onclick="window.open('/cart', '_self')"> <a> 
+									<span class="icon_menu_text"> 
+										{% if session['ShoppingCart']|length > 0 %}
+											{{session['ShoppingCart']|length}}
+										{% endif %}
+									</span>
+								<img src="{{ url_for('static', filename='icons/cart.png') }}" class="menu_icons"> </a> </li>
+								{% if current_user.is_authenticated == False %}
+                	<li class="menu_in nav_view" onclick="window.open('/login', '_self')"> <a> <img src="{{ url_for('static', filename='icons/account.png') }}" class="menu_icons"> </a> </li>
+								{% endif %}
+								{% if current_user.is_authenticated %}
+                	{% if current_user.is_premium == True %}
+									<li class="menu_in nav_view" onclick="window.open('/profile', '_self')"> <a> <img src="{{ url_for('static', filename='icons/premium.png') }}" class="menu_icons"> </a> </li>
+									{% endif %} 
+									{% if current_user.is_premium == False %}
+                	<li class="menu_in nav_view" onclick="window.open('/profile', '_self')"> <a> <img src="{{ url_for('static', filename='icons/logged_in.png') }}" class="menu_icons"> </a> </li>
+									{% endif %}
+								{% endif %}
+            </ul>
+        </nav>
+
+        <span class="menu_in" id="mobile_menu_btn" onclick="openMenu()"> &#9776; </span>
+
+        <div id="mobile_menu">
+            <span id="close_btn" onclick="closeMenu()"> &#x2715; </span>
+            <ul id="mobile_nav_list">
+                <img id="mobile_logo" src="{{ url_for('static', filename='logo/white_mini_transparent.png') }} "  onclick="window.open('/', '_self')">
+                <li class="nav_view" onclick="window.open('/products', '_self')"> <a> PRODUCTS </a> </li>
+                <li class="nav_view" onclick="window.open('/order', '_self')"> <a> ORDERING PROCESS </a> </li>
+                <li class="nav_view" onclick="window.open('/aboutus', '_self')"> <a> ABOUT US </a> </li>
+								<li class="menu_in nav_view" onclick="window.open('/cart', '_self')"> 
+								<a> CART 
+									{% if session['ShoppingCart']|length > 0 %}
+											({{session['ShoppingCart']|length}})
+										{% endif %}
+								</a>
+								</li>
+								{% if current_user.is_authenticated == False %}
+                	<li class="menu_in nav_view" onclick="window.open('/login', '_self')"> <a> LOGIN </a> </li>
+								{% endif %}
+								{% if current_user.is_authenticated %}
+                	<li class="menu_in nav_view" onclick="window.open('/profile', '_self')"> <a> PROFILE: {{current_user.first_name}} 
+									{% if current_user.is_premium == True %}
+										<img src="{{ url_for('static', filename='icons/premium.png') }}" class="menu_icons">
+									{% endif %} 
+									</a> </li>
+								{% endif %}
+
+
+                <div class="line_holder">
+                    <div class="line"> </div>
+                    <div>
+                        compileprojects.com
+                        <br><br>
+                        Designed by <span onclick="alert('You Found An Easter Egg')" id="easter_egg"> Compile Projects </span>
+                        <br>
+                        2020
+                    </div>
+                </div>
+            </ul>
+        </div>
+
+		{% block content %}
+		
+		{% endblock %}
+
+
+
+		{% block footer %}
+
+		{% endblock %}
+        <div class="footer_content">
+            <div class="footer_section">
+                <img id="footer_logo" src="{{ url_for('static', filename='logo/white_mini_transparent.png') }} " onclick="window.open('/', '_self')" >
+                <br>
+                <p id="footer_desc">
+                    Compile Projects is a software development studio based in Trinidad & Tobago <img src="{{ url_for('static', filename='icons/flag.png') }}  " height="10px"> . We create new innovative products and experiences for people worldwide to enjoy.
+                </p>
+                <br>
+                <div id="social_icons">
+                    <img  onclick="window.open('/FB_compile', '_self')" height="40px" src="{{ url_for('static', filename='icons/fb.png') }}  ">
+                    <img onclick="window.open('/Twitter_compile', '_self')" height="40px" src="{{ url_for('static', filename='icons/twitter.png') }}  ">
+                    <img onclick="window.open('/IG_compile', '_self')" height="40px" src="{{ url_for('static', filename='icons/ig.png') }}  ">
+										<img onclick="window.open('/GIT_compile', '_self')" height="40px" src="{{ url_for('static', filename='icons/github.png') }}  ">
+                </div>
+            </div>
+            <div class="footer_section">
+                <h2 id="footer_products_tag" onclick="window.open('/products', '_self')"> Products </h2>
+                <br>
+                <ul id="quick_nav">
+                		<li onclick="window.open('/websites', '_self')"> <a> WEBSITES </a> </li>
+                		<li onclick="window.open('/filters', '_self')"> <a> SOCIAL MEDIA FILTERS </a> </li>
+                		<li onclick="window.open('/invoice', '_self')"> <a> INVOICE MAKER </a> </li>
+                		<li onclick="window.open('/bill', '_self')"> <a> RECEIPT MAKER </a> </li>
+                </ul>
+            </div>
+            <div class="footer_section">
+                <h2> Quick Links </h2>
+                <br>
+                <ul id="quick_nav">
+										{% if current_user.is_authenticated == False %}
+                			<li onclick="window.open('/login', '_self')"> <a> LOGIN </a> </li>
+										{% endif %}
+										{% if current_user.is_authenticated %}
+                			<li onclick="window.open('/profile', '_self')"> <a> PROFILE: {{current_user.first_name}} 
+											{% if current_user.is_premium == True %}
+													<img class="footer_prem_icon" src="{{ url_for('static', filename='icons/premium.png') }}"> 
+												{% endif %} 	
+											</a> </li>
+										{% endif %}
+									  <li onclick="window.open('/aboutus', '_self')"> <a> ABOUT US </a> </li>
+										<li onclick="window.open('/order', '_self')"> <a> ORDERING PROCESS </a> </li>
+                    <li onclick="window.open('/FAQ', '_self')"><a> FAQ </a></li>
+                    <li onclick="window.open('/legal', '_self')" ><a> LEGAL </a></li>
+                </ul>
+                <br>
+                <div id="patreon_btn_holder">
+                    <button id="pateron_button" onclick="window.open('/message_us', '_self')" > CONTACT US </button>
+                </div>
+                
+            </div>
+        </div>
+        <div class="footer_bottom">
+            compileprojects.com
+            <br class="hide_mobile">
+            <br class="hide_mobile">
+            Designed by <span onclick="alert('You Found An Easter Egg')" id="easter_egg"> Compile Projects </span>
+						<br class="hide_mobile">
+					  Icons by <span onclick="window.open('/icons_8', '_self')" id="easter_egg"> Icons8 </span>
+            <br class="hide_mobile">
+            <br class="hide_mobile">
+            2020
+        </div>
+    </div>
+
+		{% if agreement == 'no' %}
+		<div class="cookies webpage">
+        <p class="cookies_para">
+          Welcome to Compile Projects we utalize cookies through out our website for many varying functions such as keeping track of your shopping cart, temporarily holding data in apps etc. By either accepting or continuing to utalize our website you are hereby agreeing to
+          <span onclick="window.open('/legal', '_self')" class="link_cookie"> these terms and conditions </span>
+        </p>
+      <button onclick="window.open('/setcookie', '_self')" class="accept_cookies"> ACCEPT </button>
+    </div>
+		{% endif %}
+
+		</div>
+
+
+    <!-- ANIMATIONS USING GSAP! -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/ScrollTrigger.min.js"></script>
+		{% block animations %}
+		
+		{% endblock %}
+ 
+</body>
+
+</html>

@@ -1,0 +1,346 @@
+{% extends "default_2.html" %}
+{% block title %} | Social Media Filters {% endblock %}
+
+{% block head_tags %} 
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <style>
+        .swiper-container {
+            width: 100%;
+            padding-top: 50px;
+            padding-bottom: 50px;
+        }
+
+        .swiper-slide {
+            background-position: center;
+            border: 3px solid white;
+            background-color: darkgrey;
+            background-size: cover;
+            width: 310px;
+            border-radius: 25px;
+            text-align: center;
+            color: black;
+        }
+
+        #SNAP {
+            border: 3px solid yellow;
+            background-color: grey;
+            color: white;
+        }
+
+        #IG {
+            border: 3px solid #DD2A7B;
+            background-color: grey;
+            color: white;
+        }
+
+        #FB {
+            border: 3px solid #405DE6;
+            background-color: grey;
+            color: white;
+        }
+
+
+        #SNAP_BTN {
+            border: 3px solid yellow;
+            background-color: grey;
+            color: white;
+        }
+
+        #IG_BTN {
+            border: 3px solid #DD2A7B;
+            background-color: grey;
+            color: white;
+        }
+
+        #FB_BTN {
+            border: 3px solid #405DE6;
+            background-color: grey;
+            color: white;
+        }
+
+
+        #SNAP_BTN:hover {
+            background-color: yellow;
+            color: black;
+        }
+
+        #IG_BTN:hover {
+            background-color: #DD2A7B;
+            color: black;
+        }
+
+        #FB_BTN:hover {
+            background-color: #405DE6;
+            color: black;
+        }
+
+        #SNAP_card_price {
+            border: 3px solid yellow;
+            background-color: transparent;
+            color: white;
+        }
+        
+        #IG_card_price {
+            border: 3px solid #DD2A7B;
+            background-color: transparent;
+            color: white;
+        }
+        
+        #FB_card_price {
+            border: 3px solid #405DE6;
+            background-color: transparent;
+            color: white;
+        }
+    </style>
+{% endblock %}
+
+{% block divheader %}
+<div id="filter_home">
+{% endblock %}
+
+{{ super() }}
+
+{% block content %}
+<div id="homepage_main_screen">
+            <div id="homepage_main_text">
+                <h1 id="big_text">
+                  SOCIAL MEDIA FILTERS
+                </h1>
+                <h4 class="main_home_in" id="small_text">
+                    <span id="price"> LEVELING UP </span> YOUR SOCIAL MEDIA
+                </h4>
+                <br class="div_not_for_mobile">
+                <br>
+                <div class="main_home_in" id="hold_call_to_action">
+                    <button onclick="window.open('main_websites_app.html', '_self')" id="call_to_action" class="call_to_action"> VIEW PACKAGES </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="packages" id="packages">
+        <h1 class="big_title"> FILTER PACKAGES </h1>
+        <p class="big_desc">
+            Level up your social media with your own unique augmented reality filter through selecting one of the packages that best suits the type of filter you want. Each package includes 1 Augmented Reality filter, 1 icon, 1 demonstation video as well as upload to the chosen social media.
+        </p>
+
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+
+								{% for prod in products %}
+
+								{% if prod.sub_catagory == "INSTA" %}
+								<div id="IG" class="swiper-slide">
+								{% endif %}
+
+								{% if prod.sub_catagory == "SNAP" %}
+								<div id="SNAP" class="swiper-slide">
+								{% endif %}
+
+								{% if prod.sub_catagory == "FB" %}
+								<div id="FB" class="swiper-slide">
+								{% endif %}
+
+                    <img src="images/{{prod.img_url}}" class="card_img">
+                    <div class="card_contents">
+                        <h1 class="card_title">
+                            {{prod.name}}
+                        </h1>
+												
+													{% if prod.sub_catagory == "INSTA" %}
+													<span id="IG_card_price" class="card_price">
+													{% endif %}
+
+													{% if prod.sub_catagory == "SNAP" %}
+													<span id="SNAP_card_price" class="card_price">
+													{% endif %}
+
+													{% if prod.sub_catagory == "FB" %}
+													<span id="FB_card_price" class="card_price">
+													{% endif %}
+
+													${{prod.price}} TTD 
+												</span>
+
+                        <p class="card_desc">
+                            {{prod.desc}}
+                        </p>
+                        <div class="card_line_holder">
+                            <div class="card_line"></div>
+                        </div>
+                        <div class="points">
+                            <ul class="card_points">
+																{% if prod.feature_1 != None %}
+                                <li>
+                                    &#x2611; {{prod.feature_1}}
+                                </li>
+																{% endif %}
+																{% if prod.feature_2 != None %}
+                                <li>
+                                    &#x2611; {{prod.feature_2}}
+                                </li>
+																{% endif %}
+																{% if prod.feature_3 != None %}
+                                <li>
+                                    &#x2611; {{prod.feature_3}}
+                                </li>
+																{% endif %}
+																{% if prod.feature_4 != None %}
+                                <li>
+                                    &#x2611; {{prod.feature_4}}
+                                </li>
+																{% endif %}
+																{% if prod.feature_5 != None %}
+																<li>
+                                    &#x2611; {{prod.feature_5}}
+                                </li>
+																{% endif %}
+																{% if prod.feature_6 != None %}
+																<li>
+                                    &#x2611; {{prod.feature_6}}
+                                </li>
+																{% endif %}
+																{% if prod.feature_7 != None %}
+																<li>
+                                    &#x2611; {{prod.feature_7}}
+                                </li>
+																{% endif %}
+                            </ul>
+                        </div>
+                        <div class="btn_holder">
+														{% if prod.sub_catagory == "INSTA" %}
+															<button onclick="window.open('/shop/{{prod.id}}', '_self')" id="IG_BTN" class="card_btn">
+														{% endif %}
+
+														{% if prod.sub_catagory == "SNAP" %}
+															<button onclick="window.open('/shop/{{prod.id}}', '_self')" id="SNAP_BTN" class="card_btn">
+														{% endif %}
+
+														{% if prod.sub_catagory == "FB" %}
+															<button onclick="window.open('/shop/{{prod.id}}', '_self')" id="FB_BTN" class="card_btn">
+														{% endif %}
+
+                            {% if prod.in_stock == True %}
+                                VIEW DETAILS
+														{% endif %}
+														{% if prod.in_stock == False %}
+                               CURRENTLY UNAVAILABLE
+														{% endif %}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+								{% endfor %}
+
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+
+				{% if current_user.is_authenticated == False %}
+		<div class="ad">
+      ADS GO HERE
+    </div>
+		{% endif %}
+
+		{% if current_user.is_premium == False %}
+		<div class="ad">
+      ADS GO HERE
+    </div>
+		{% endif %}
+
+    <div class="website_page_box_1">
+        <div class="flex_website_holder">
+            <div id="left_top" class="flex_holder">
+                <img class="sidebysidepicture" src="images/filters_1.jpg">
+            </div>
+            <div id="right_top" class="flex_holder">
+                <div class="desc_websites">
+                    <h1 class="desc_title"> MARKETING + FUN </h1>
+                    <p class="desc_desc">
+                        Augmented reality filters offer a whole new way for your followers to interact with you. These filters allow for the alteration of your follower's camera with the effect you have choosen. Additionally when a user creates and posts an story utalising your effect, the effect's name and your page are tagged in the top lefthand corner increasing potential user flow to your social media's page.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        		{% if current_user.is_authenticated == False %}
+		<div class="ad">
+      ADS GO HERE
+    </div>
+		{% endif %}
+
+		{% if current_user.is_premium == False %}
+		<div class="ad">
+      ADS GO HERE
+    </div>
+		{% endif %}
+
+        <div class="flex_website_holder_2">
+            <div class="flex_holder">
+                <div id="left_bottom" class="desc_websites">
+                    <h1 class="desc_title"> LEVEL UP YOUR SOCIAL MEDIA </h1>
+                    <p class="desc_desc">
+                        Your new augmented reality face filter will be shown in the face filter browser of the social media it is uploaded to. This can significantly increase followers and interaction with your social media in a new way and allow for you to reach thousands of new persons through your new filter.
+                    </p>
+                </div>
+            </div>
+            <div id="right_bottom" class="flex_holder">
+                <img class="sidebysidepicture" src="images/spark_stats.jpg">
+            </div>
+        </div>
+
+        <h1 class="ready_title ready_in">
+            WE'RE READY TO TAKE YOUR INSTAGRAM TO THE
+            <span id="price"> NEXT LEVEL </span>!
+        </h1>
+        <div class="main_home_in ready_in" id="hold_call_to_action">
+            <button onclick="window.open('main_websites_app.html', '_self')" id="call_to_action" class="call_to_action"> VIEW PACKAGES </button>
+        </div>
+
+    </div>
+
+		
+    		{% if current_user.is_authenticated == False %}
+		<div class="ad">
+      ADS GO HERE
+    </div>
+		{% endif %}
+
+		{% if current_user.is_premium == False %}
+		<div class="ad">
+      ADS GO HERE
+    </div>
+		{% endif %}
+{% endblock %}
+
+{% block footer %}
+<div class="footer footer_special">
+{% endblock %}
+
+
+{% block animations %}
+<!-- <script src="main_websites.js"></script> -->
+
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            effect: 'coverflow',
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: 'auto',
+            coverflowEffect: {
+                rotate: -0,
+                stretch: 0,
+                depth: 100,
+                modifier: 3,
+                slideShadows: true,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+            },
+        });
+    </script>
+{% endblock %}

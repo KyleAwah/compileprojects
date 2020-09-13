@@ -1,0 +1,373 @@
+{% from "_formhelpers.html" import render_field %}
+
+
+{% extends "default.html" %}
+{% block title %} | {{current_user.first_name}}'s Profile {% endblock %}
+
+{% block head_tags %} 
+<style>
+.profile_icon{
+	height: 20px;
+	padding-right: 10px;
+}
+
+.profile_side_icon{
+	height: 15px;
+}
+
+.blank_desc{
+	font-size: 16px;
+}
+
+.prem_icon{
+	height: 25px;
+}
+
+.mobile{
+	display:none;
+	list-style: none;
+	background-color: #fff5;
+	border-bottom: 3px solid pink;
+}
+
+.mobile:hover{
+	background-color: #fff2;
+	border-left: 3px solid transparent;
+	border-bottom: 3px solid pink;
+}
+
+.nav_arrow{
+	height: 18px;
+}
+
+#temp{
+	max-width: 100%;
+}
+
+.mini{
+	padding-left: 200px;
+	padding-right: 200px;
+}
+
+.whole_item:hover .cart_controls{
+    cursor: pointer;
+    transform: scale(0.92);
+    background-color: #fff4;
+    border: 3px solid pink;
+}
+
+.whole_item:hover .cart_item{
+    cursor: pointer;
+    transform: scale(0.92);
+    background-color: #fff4;
+    border: 3px solid pink;
+}
+				
+
+@media only screen and (max-width: 1300px) {
+	.mini{
+		padding-left: 100px;
+		padding-right: 100px;
+	}
+}
+
+
+.bye_desktop{
+	display: none;
+}
+
+@media only screen and (max-width: 900px) {
+
+.bye_desktop{
+	display: block;
+}
+
+			#productpage_holder{
+		padding: 8px;
+	}
+	
+	.profile_side_menu_list{
+		display: none;
+	}
+
+	.profile_side_menu_list.live{
+		display: block;
+		background-color: #fff5;
+	}
+
+	.bye_mobile{
+		display: none;
+	}
+
+	.mobile{
+		display: block;
+	}
+
+	.mini{
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+}
+</style>
+{% endblock %}
+
+{% block divheader %}
+<div id="main_cart">
+{% endblock %}
+
+{{ super() }}
+
+{% block content %}
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <br>
+        <div id="ALERT" class="alert_good">
+            {% for message in messages %}
+            <span class="closebtn" onclick="this.parentElement.style.display='none';"> &times; </span>
+            {{ message }}
+            {% endfor %}
+        </div>
+        <br>
+        {% endif %}
+        {% endwith %}
+
+
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<script>
+	const target = document.getElementsByClassName("profile_side_menu_list");
+
+	function profile_menu_open(){
+		x = $(".profile_side_menu_list").first().hasClass("profile_side_menu_list live");
+
+		if (!x){
+			target[0].className += " live";
+		}
+
+		if (x){
+			target[0].className = "profile_side_menu_list";
+		}
+	}
+</script>
+
+
+        <div id="warning_window" class="warnning_holder">
+            <div class="warning_pannel">
+                <h1 class="warning_title"> &#x26A0; WARNING &#x26A0; </h1>
+                <p class="warning_txt">
+                    You are about to permanently delete your Compile Projects account. This action cannot be reversed or undone and your account including all purchases and information stored in relation to this account will be deleted FOREVER.
+                </p>
+                <br>
+                <button onclick="hide()" class="keep_account"> KEEP MY ACCOUNT </button>
+                <div class="concequences_holder">
+                    <input id="confirm" type="checkbox">
+                    I UNDERSTAND THE CONSEQUENCES
+                    <br><br>
+                    <span onclick="del()" class="del"> YES PERMANENTLY DELETE MY ACCOUNT </span>
+                </div>
+            </div>
+        </div>
+
+        <div id="productpage_holder">
+            <div class="profile_pannel">
+                <div class="profile_flex">
+                    <div class="profile_side_menu">
+                        <h1 class="profile_name"> 
+													Hi {{current_user.first_name}}!
+													{% if current_user.is_premium == True %}
+													<img class="prem_icon" src="{{ url_for('static', filename='icons/premium.png') }}"> 
+													{% endif %} 
+												</h1>
+                        
+												<li onclick="profile_menu_open()" class="mobile profile_btns"> 
+													MENU 
+													<img class="nav_arrow" src="{{ url_for('static', filename='icons/down.png') }}"> 
+												</li>
+
+                        <ul id"profile_menu" class="profile_side_menu_list">
+													  <br class="bye_desktop">
+														{% if current_user.is_admin == True %}
+                							<li onclick="window.open('/admin', '_self')" class="profile_btns"> 
+																<img class="profile_side_icon" src="{{ url_for('static', filename='icons/data.png') }}"> 
+																DATABASE
+																<img class="profile_arrow" src="{{ url_for('static', filename='icons/down.png') }}"> 
+															</li>
+                							<li onclick="window.open('/admin/send_mail', '_self')" class="profile_btns"> 
+																<img class="profile_side_icon" src="{{ url_for('static', filename='icons/send_mail.png') }}"> 
+																SEND MAIL
+																<img class="profile_arrow" src="{{ url_for('static', filename='icons/down.png') }}"> 
+															</li>
+															<br><br>
+														{% endif %}
+														{% if current_user.email_confirmed == False %}
+                							<li onclick="window.open('/confirm_email/send', '_self')" class="profile_btns"> 
+															  <img class="profile_side_icon" src="{{ url_for('static', filename='icons/confirm_email.png') }}"> 
+																CONFIRM EMAIL 
+																<img class="profile_arrow" src="{{ url_for('static', filename='icons/down.png') }}"> 
+																</li>
+															<br><br>
+														{% endif %}
+                            <li onclick="window.open('/profile', '_self')" class="profile_btns"> 
+														  <img class="profile_side_icon" src="{{ url_for('static', filename='icons/card.png') }}"> 
+															GENERAL 
+															<img class="profile_arrow" src="{{ url_for('static', filename='icons/down.png') }}"> 
+														</li>
+                            <li onclick="window.open('/profile/orders', '_self')" class="profile_btns"> 
+															<img class="profile_side_icon" src="{{ url_for('static', filename='icons/orders.png') }}"> 
+															ORDERS 
+															<img class="profile_arrow" src="{{ url_for('static', filename='icons/down.png') }}"> 
+														</li>
+														<li onclick="window.open('/profile/purchased', '_self')" class="profile_btns"> 
+															<img class="profile_side_icon" src="{{ url_for('static', filename='icons/purchased.png') }}"> 
+															PURCHASED 
+															<img class="profile_arrow" src="{{ url_for('static', filename='icons/down.png') }}"> 
+														</li>
+														<li onclick="window.open('/profile/wishlist', '_self')" class="active profile_btns"> 
+														  <img class="profile_side_icon" src="{{ url_for('static', filename='icons/wishlist.png') }}"> 
+															WISHLIST 
+															<img class="profile_arrow" src="{{ url_for('static', filename='icons/down.png') }}"> 
+														</li>
+                            <li onclick="window.open('/profile/settings', '_self')" class="profile_btns">
+														  <img class="profile_side_icon" src="{{ url_for('static', filename='icons/settings.png') }}"> 
+															SETTINGS 
+															<img class="profile_arrow" src="{{ url_for('static', filename='icons/down.png') }}"> 
+														</li>
+                            <br><br>
+                            <li onclick="window.open('/logout', '_self')" class="logout_btn profile_btns"> LOGOUT </li>
+                        </ul>
+                        <br><br>
+                    </div>
+                    <div class="profile_pannel_content">
+
+                        <div id="PROFILE_ORDERS">
+                            <h1 class="page_title"> WISHLIST </h1>
+
+														{% if test == False %}
+															<h1 class="no_orders"> NO PRODUCTS
+															<br><br>
+																<div class="mini">
+																	<img id="temp" src="{{ url_for('static', filename='images/howto.png') }}">
+																</div>
+																<br class="bye_mobile">
+																<br class="bye_mobile">
+																<span class="blank_desc"> 
+																	Saving an item to your wishlist allows you to view items you are intrested in with ease. Products can be added to this wishlist through the product page as well as cart pages as depicted above
+																</span>
+															</h1>
+														{% endif %}
+
+														{% if test == True %}
+														
+														{% for key, item in prods %}
+                            <div class="whole_item">
+                                <div class="cart_item">
+                                    <div class="cart_item_contents">
+                                        <h1 class="cart_item_title"> {{item.name}} </h1>
+                                        <div class="cart_holder_flex">
+                                            <div class="cart_left">
+                                                <img class="cart_img" src="{{ url_for('static', filename='images/'+item.img_url) }}">
+                                            </div>
+                                            <div class="cart_right">
+                                                <div class="cart_price_holder">
+                                                    <span class="cart_price"> ${{item.price}} TTD </span>
+                                                </div>
+                                                <h1 class="cart_desc_title"> DESCRIPTION </h1>
+                                                <p class="cart_desc">
+                                                    {{item.desc}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="cart_controls">
+                                    <div class="actual_controls">
+                                        <div class="ctrl_btn_holder cart_item_contents">
+                                            <div onclick="window.open('/wishlist/remove/{{item.id}}', '_self')" class="ctrl_btn">
+                                                <img class="ctrl_icon" src="{{ url_for('static', filename='icons/del.png') }}">
+                                                <span class="ctrl_text"> REMOVE </span>
+                                            </div>
+                                            <br>
+
+                                            <div onclick="window.open('/shop/{{item.id}}', '_self')" class="ctrl_btn">
+                                                <img class="ctrl_icon" src="{{ url_for('static', filename='icons/view.png') }}">
+                                                <span class="ctrl_text"> VIEW </span>
+                                            </div>
+                                            <br>
+
+                                            <div onclick="window.open('/add_to_cart/{{item.id}}/1', '_self')" class="ctrl_btn">
+                                                <img class="ctrl_icon" src="{{ url_for('static', filename='icons/cart_2.png') }}">
+                                                <span class="ctrl_text"> ADD </span>
+                                            </div>
+                                            <br>
+
+                                            <div onclick="hello({{item.id}})" class="ctrl_btn">
+                                                <img class="ctrl_icon" src="{{ url_for('static', filename='icons/share.png') }}">
+                                                <span class="ctrl_text"> SHARE </span>
+                                            </div>
+
+                                            <input id="{{item.id}}" class="make_me_blank" value="https://compileprojects.kyleawah.repl.co/shop/{{item.id}}">
+                                        </div>
+                                        <div id="stat_1" class="url_coppied">
+                                            <strong> URL COPIED ! </strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+														{% endfor %}
+														{% endif %}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+<div class="footer footer_special">
+{% endblock %}
+
+
+{% block animations %}
+
+<script>
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        async function hello(num) {
+            var el = document.getElementById(num);
+            el.select();
+            if (document.execCommand('copy')) {
+                var st = document.getElementById('stat_1');
+                st.style.display = "block";
+                await sleep(2000);
+                st.style.display = "none";
+            }
+
+
+        }
+</script>
+
+<script>
+        const target = document.getElementById('warning_window');
+        function hide() {
+            target.style.display = "none";
+        }
+        function show(){
+            target.style.display = "inline-flex";
+        }
+        
+        function del(){
+            var check = document.getElementById('confirm').checked; 
+            if (check == true){
+								window.open('/delete_account', '_self');
+            }
+            if (check == false){
+                alert("Please agree to the conditions if you wish to delete your account");
+            }
+        }
+</script>
+{% endblock %}

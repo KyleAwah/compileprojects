@@ -1,0 +1,188 @@
+{% extends "default.html" %}
+{% block title %} | About Us {% endblock %}
+
+{% block divheader %}
+    <div id="about_us_home">
+{% endblock %}
+
+{{ super() }}
+
+{% block content %}
+        <div id="homepage_main_screen">
+            <div id="homepage_main_text">
+                <h1 id="big_text">
+                    WE <span id="price"> LOVE </span> WHAT WE DO
+                </h1>
+                <h4 class="main_home_in" id="small_text">
+                    THIS IS WHY
+                </h4>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="website_page_box_1">
+        <h1 class="titles_about_me title_1"> WHO ARE YOU? </h1>
+
+        <div class="dev_box">
+            <div class="dev_para">
+                <h1 class="desc_title"> MY NAME IS <span id="price"> KYLE. </span> </h1>
+                <p class="desc_desc">
+                    I am a programming student who is currently pursuing his degree in university but computer science was never my only passion rather just one of them. My other passions include architecture, music production, photography, film production and so much more. I started Compile Projects in 2020 as both an area where I can freely solidify my ideas for programs which I've made as well as with the goal of revolutionizing the way in which the distribution of application impacts people's lives.
+                </p>
+                <div class="center_socials">
+                    <div id="social_icons">
+                        <img onclick="window.open('https://www.facebook.com/itskylehalo/', '_self')" height="50px" src="icons/fb.png">
+                        &nbsp; &nbsp; &nbsp;
+                        <img onclick="window.open('https://twitter.com/itskylehalo', '_self')" height="50px" src="icons/twitter.png">
+                        &nbsp; &nbsp; &nbsp;
+                        <img onclick="window.open('http://instagram.com/kylehalo/', '_self')" height="50px" src="icons/ig.png">
+                    </div>
+                </div>
+
+            </div>
+            <div class="dev_img_holder">
+                <img class="dev_img" src="images/dev_1.JPG">
+            </div>
+        </div>
+        
+        		{% if current_user.is_authenticated == False %}
+		<div class="ad">
+      ADS GO HERE
+    </div>
+		{% endif %}
+
+		{% if current_user.is_premium == False %}
+		<div class="ad">
+      ADS GO HERE
+    </div>
+		{% endif %}
+
+        <h1 class="titles_about_me title_2"> WHERE ARE YOU FROM? </h1>
+
+        <div class="flex_website_holder">
+            <div id="left_top" class="flex_holder">
+                <img class="sidebysidepicture" src="images/trinidad_outline.png">
+            </div>
+            <div id="right_top" class="flex_holder">
+                <div class="desc_websites">
+                    <h1 class="desc_title">
+                        <span id="price">
+                            TRINIDAD,
+                        </span>
+                        <br class="hidemewhenondesktop">
+                        THE CARIBBEAN
+                    </h1>
+                    <p class="desc_desc">
+                        With a population of just over 1 million citizens this final island of the Caribbean archipelago is known as our home. Often identified for our beautiful geography diverse culture and one of a kind festival of carnival, we are proud to call this island our home.
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+       		{% if current_user.is_authenticated == False %}
+		<div class="ad">
+      ADS GO HERE
+    </div>
+		{% endif %}
+
+		{% if current_user.is_premium == False %}
+		<div class="ad">
+      ADS GO HERE
+    </div>
+		{% endif %}
+
+        <h1 class="titles_about_me title_3"> WHY DO THIS?</h1>
+
+        <div class="fancy">
+            <div class="flex_about_us_holder">
+                <div class="flex_holder">
+                    <img class="mini_logos" src="icons/globe.png">
+                    <br>
+                    <h1 class="mini_title"> Creating Good In The World</h1>
+                    <p class="about_us_desc_mini">
+                        When I first learned to program I was astounded at all of the amazing capability that could be achieved through this tool. Instantly, I was filled with many ideas about applications and programs that I could write to solve many problems. This perfectly fell in alignment with my own personal characteristics as I realised through programming I can create happiness for myself and others as well as create good in this world.
+                    </p>
+                </div>
+
+                <div class="flex_holder">
+                    <img class="mini_logos" src="icons/empower.png">
+                    <br>
+                    <h1 class="mini_title"> Empowering People </h1>
+                    <p class="about_us_desc_mini">
+                        Throughout my life before learning programming I was frequently frustrated at the lack of free tools available to the average consumer. I often found myself unable to complete basic tasks without having to pay subscriptions or one time fees which I couldn't afford or encounter steep learning curves to accomplish simple tasks. We set-out to change this through empowering people with robust free web applications.
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex_about_us_holder">
+                <div class="flex_holder">
+                    <img class="mini_logos" src="icons/different.png">
+                    <br>
+                    <h1 class="mini_title"> Being Different </h1>
+                    <p class="about_us_desc_mini">
+                        Throughout my life I have witnessed countless business owners operate their firms in a manner that mistreats their employees. This problem is one which not only i have personally encountered but also my friends and family. However, at Compile Projects it’s about being different to these people. Every employee, customer and stranger are treated as equal because this is what we believe in. No person is above another.
+                    </p>
+                </div>
+
+                <div class="flex_holder">
+                    <img class="mini_logos" src="icons/giving.png">
+                    <br>
+                    <h1 class="mini_title"> Giving Back </h1>
+                    <p class="about_us_desc_mini">
+                        Giving back is something which has always mattered dearly to me as an individual, as well as through our business. Unfortunately, to be able to give back financially wealth must be generated. However, this does not stop us from giving back in our own ways. We try to offer the lowest rates we can and offer giveaways as frequently as possible. This is so that we can help out as many people as possible because for us it is not solely about the product but rather its impact.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+        
+        <br><br><br><br>
+
+        <div class="thank_you">
+            <h1 class="desc_title">
+                <span id="price">
+                    THANK YOU
+                </span>
+                <br>
+                <span class="by_kyle"> ~ kyle. </span>
+            </h1>
+            <br>
+            <p class="desc_desc">
+                If you are currently reading this paragraph you would have visited one of our pages or even made a purchase of one of our packages. I truly want to say thank you, because every 1 in 10 start-ups fail and through every little act of support and interaction with us you are empowering our small business to continue to create good in this world.
+                <br>
+                You're Awesome!
+            </p>
+        </div>
+
+        <h1 class="ready_title ready_in">
+            TAKE A LOOK AT THE AMAZING THINGS WERE CURRENTLY WORKING ON !
+        </h1>
+        <div class="main_home_in ready_in" id="hold_call_to_action">
+            <button onclick="window.open('/products', '_self')" id="call_to_action" class="call_to_action"> VIEW PRODUCTS </button>
+        </div>
+    </div>
+
+		<br><br>
+    		{% if current_user.is_authenticated == False %}
+		<div class="ad">
+      ADS GO HERE
+    </div>
+		{% endif %}
+
+		{% if current_user.is_premium == False %}
+		<div class="ad">
+      ADS GO HERE
+    </div>
+		{% endif %}
+		
+{% endblock %}
+
+{% block footer %}
+<div class="footer footer_special">
+{% endblock %}
+
+
+{% block animations %}
+<!-- <script src="main_about_us.js"></script> -->
+{% endblock %}

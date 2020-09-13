@@ -1,0 +1,211 @@
+{% extends "default.html" %}
+{% block title %}{% endblock %}
+
+{% block head_tags %} 
+
+    <style>
+        .button-container-2 button {
+            background-color: pink;
+            font-size: 20px;
+            padding: 10px;
+            border: 2px solid pink;
+
+            -webkit-mask: url("https://raw.githubusercontent.com/robin-dela/css-mask-animation/master/img/urban-sprite.png");
+            mask: url("https://raw.githubusercontent.com/robin-dela/css-mask-animation/master/img/urban-sprite.png");
+            -webkit-mask-size: 3000% 100%;
+            mask-size: 3000% 100%;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            -webkit-animation: ani2 0.7s steps(29) forwards;
+            animation: ani2 0.7s steps(29) forwards;
+        }
+
+        .button-container-2 button:hover {
+            -webkit-animation: ani 0.7s steps(29) forwards;
+            animation: ani 0.7s steps(29) forwards;
+        }
+
+        .mas {
+            position: absolute;
+            color: pink;
+            text-align: center;
+            position: absolute;
+            overflow: hidden;
+            font-size: 20px;
+            padding: 9px;
+            border: 2px solid pink;
+        }
+
+        @keyframes ani {
+            from {
+                -webkit-mask-position: 0 0;
+                mask-position: 0 0;
+            }
+
+            to {
+                -webkit-mask-position: 100% 0;
+                mask-position: 100% 0;
+            }
+        }
+
+        @-webkit-keyframes ani2 {
+            from {
+                -webkit-mask-position: 100% 0;
+                mask-position: 100% 0;
+            }
+
+            to {
+                -webkit-mask-position: 0 0;
+                mask-position: 0 0;
+            }
+        }
+
+        @keyframes ani2 {
+            from {
+                -webkit-mask-position: 100% 0;
+                mask-position: 100% 0;
+            }
+
+            to {
+                -webkit-mask-position: 0 0;
+                mask-position: 0 0;
+            }
+        }
+
+				.content_box_1 {
+	  			height: 100vh;
+				}
+    </style>
+{% endblock %}
+
+
+{% block divheader %}
+<div id="main">
+{% endblock %}
+
+{{ super() }}
+
+{% block content %}
+			{% with messages = get_flashed_messages() %}
+  				{% if messages %}
+					<br>
+        		<div id="ALERT" class="alert_bad">
+        			{% for message in messages %}
+          			<span class="closebtn" onclick="this.parentElement.style.display='none';"> &times; </span>
+        				{{ message }}
+        			{% endfor %}
+        		</div>
+					<br>
+  				{% endif %}
+			{% endwith %}
+
+        <div id="HOME_WORDS">
+                <h1 id="big_text">
+                    SIMPLE, <span id="price"> BUT POWERFUL. </span> 
+                </h1>
+                <h4 class="main_home_in" id="small_text">
+                    EMPOWERING 
+										<span id="price">
+											YOU 
+										</span>
+										TO CREATE SOMETHING AMAZING
+                </h4>
+								
+                <div class="HOME_BTN" id="hold_call_to_action">
+									<div class="button-container-2">
+                    <span class="mas"> VIEW ALL PRODUCTS </span>
+                    <button type="button" name="Hover" onclick="window.open('/products', '_self')"> VIEW ALL PRODUCTS </button>
+                </div>
+                </div>
+        </div>
+    </div>
+
+		{% if current_user.is_authenticated == False %}
+		<div class="ad">
+      ADS GO HERE
+    </div>
+		{% endif %}
+
+		{% if current_user.is_premium == False %}
+		<div class="ad">
+      ADS GO HERE
+    </div>
+		{% endif %}
+
+		<div class="content_box_3">
+        <div id="charm_screen">
+            <h1 class="bill_words" id="big_text">
+                INVOICE MAKER
+            </h1>
+            <h4 class="bill_words" id="small_words">
+								MAKING BEAUTIFUL INVOICES JUST GOT
+                <span id="price"> A WHOLE LOT SIMPLER </span>
+            </h4>
+            <div class="bill_words" id="charm_btn">
+
+								<div class="button-container-2">
+                    <span class="mas"> CREATE FOR FREE </span>
+                    <button type="button" name="Hover" onclick="window.open('/invoice', '_self')"> CREATE FOR FREE </button>
+                </div>
+
+            </div>
+
+            <div id="hold_comp">
+                <img id="comp_filled" src="images/comp_filled.png">
+            </div>
+        </div>
+    </div>
+
+		{% if current_user.is_authenticated == False %}
+		<div class="ad">
+      ADS GO HERE
+    </div>
+		{% endif %}
+
+		{% if current_user.is_premium == False %}
+		<div class="ad">
+      ADS GO HERE
+    </div>
+		{% endif %}
+    <div class="content_box_1">
+        <div class="center">
+					<h1 class="bill_words" id="big_text">
+                SOCIAL MEDIA FILTERS
+            </h1>
+            <h4 class="bill_words" id="small_words">
+                STARTING AS LOW AS
+                <span id="price"> $300TTD </span>
+            </h4>
+            <div class="bill_words" id="charm_btn">
+                <div class="button-container-2">
+                    <span class="mas"> VIEW PRICING </span>
+                    <button type="button" name="Hover" onclick="window.open('/filters', '_self')"> VIEW PRICING </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+		{% if current_user.is_authenticated == False %}
+		<div class="ad">
+      ADS GO HERE
+    </div>
+		{% endif %}
+
+		{% if current_user.is_premium == False %}
+		<div class="ad">
+      ADS GO HERE
+    </div>
+		{% endif %}
+
+{% endblock %}
+
+
+{% block footer %}
+<div class="footer footer_special">
+{% endblock %}
+
+
+{% block animations %}
+<!-- <script src="main.js"></script> -->
+{% endblock %}

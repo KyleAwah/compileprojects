@@ -1,0 +1,205 @@
+{% from "_formhelpers.html" import render_field %}
+
+{% extends "default_2.html" %}
+{% block title %} | Check Out {% endblock %}
+
+{% block head_tags %} 
+ <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <style>
+        .swiper-container {
+            width: 100%;
+            height: 100%;
+        }
+
+        .swiper-slide {
+            padding: 40px;
+            padding-left: 60px;
+            padding-right: 60px;
+        }
+
+        @media only screen and (max-width: 900px) {
+            .swiper-slide {
+                padding-left: 50px;
+                padding-right: 50px;
+            }
+        }
+
+				.click_me{
+					color:pink;
+					transition: 300ms;
+				}
+
+				.click_me:hover {
+					color: white;
+					cursor: pointer;
+				}
+
+	.grey{
+		color:grey;
+		font-size: 15px;
+	}
+
+	.hey{
+		text-align: center;
+		font-size: 18px;
+		padding-bottom:15px;
+	}
+
+	.fill_me{
+		border-radius: 25px;
+		width: 100%;
+		height: 20%;
+		font-size: 18px;
+		padding: 15px;
+		max-width: 100%;
+		min-width: 100%;
+	}
+    </style>
+{% endblock %}
+
+{% block divheader %}
+<div id="main_cart">
+{% endblock %}
+
+{{ super() }}
+
+{% block content %}
+
+<div id="productpage_holder">
+            <h1 class="big_checkout_title"> CHECKOUT </h1>
+
+            <p id="checkout_top_desc" class="checkout_desc">
+                Welcome to the checkout page where you can proceed to place an order on the items in your cart. You can navitage through each step of the checkout process by either pressing on the blue navigation arrows or alternativley swiping between the pannels.
+            </p>
+
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+
+
+
+                    <div class="swiper-slide">
+                        <h1 class="checkout_title"> YOUR INFORMATION </h1>
+                        <p class="checkout_desc">
+                            This pannel displays all of the current information about your account. Please ensure that all of the following informaiton is complete and accurate as this information is how you shall be contacted with further inquires about your purchase. If you need to update your account's information may do so through the edit account button.
+                        </p>
+                        <div class="checkout_pannel_holder">
+                            <div class="checkout_fields">
+                                <div class="checkout_flex">
+                                    <h1 class="checkout_label"> EMAIL </h1>
+                                    <h1 class="checkout_information"> {{current_user.email}} </h1>
+                                </div>
+																<div class="checkout_flex">
+                                    <h1 class="checkout_label"> WHATSAPP </h1>
+                                    <h1 class="checkout_information"> {{current_user.phone_number}} </h1>
+                                </div>
+                                <div class="checkout_flex">
+                                    <h1 class="checkout_label"> FIRST NAME </h1>
+                                    <h1 class="checkout_information"> {{current_user.first_name}} </h1>
+                                </div>
+                                <div class="checkout_flex">
+                                    <h1 class="checkout_label"> LAST NAME </h1>
+                                    <h1 class="checkout_information"> {{current_user.last_name}} </h1>
+                                </div>
+                            </div>
+                            <div class="checkout_ctrls">
+                                <div class="edit_btn_holder">
+                                    <button  onclick="window.open('/profile/settings', '_self')" class="checkout_edit"> EDIT ACCOUNT </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <h1 class="checkout_title"> YOUR CART </h1>
+                        <p class="checkout_desc">
+                            This pannel contains all of the information about the items which are currently in your cart. Each item contains a description which is to be filled out, this description states the intended design and functionality of the product you are seeking to have created. Before purchasing ensure that the items as well as their respective quantities and descriptions are accurate and the ones which you desire to purchase. Inquires about purchases can additionally be found within our <span class="click_me" onclick="window.open('/faq', '_self')"> FAQ Section. </span>
+                        </p>
+                        <div class="checkout_pannel_holder">
+                            <div class="checkout_fields">
+																		
+																	{% for key, item in session['ShoppingCart'].items() %}
+                                    <div class="checkout_item_holder">
+                                        <div class="checkout_item">
+                                            <div class="checkout_prod_text_flex">
+                                                <h1 class="checkout_prod_title">
+                                                    {{item["name"]}}
+                                                    <br><br>
+                                                    QTY: {{item["AMT_IN_CART"]}}
+                                                </h1>
+                                                <h1 class="checkout_prod_price">
+                                                    <span class="checkout_price"> ${{item["price_total"]}} TTD </span>
+
+																										{% if item["monthly_price"] != 0 %}
+																										<br><br>
+                                                    <span class="checkout_monthly"> + ${{item["monthly_price"]}} TTD (MONTHLY) </span>
+																										{% endif %}
+
+                                                </h1>
+                                            </div>
+																						<br>
+                                        </div>
+                                    </div>
+																{% endfor %}
+                            </div>
+                            <div class="checkout_ctrls">
+                                <h1 class="checkout_title"> TOTAL </h1>
+                                <h1 class="checkout_price_holder">
+                                    <span class="checkout_total"> ${{absolute_total}} TTD </span>
+                                </h1>
+																{% if monthly_total != 0 %}
+																<div class="cart_bottom_cals">
+																		+ 
+                										${{monthly_total}}TTD (MONTHLY)
+																</div>
+																{% endif %}
+                                <div class="edit_btn_holder">
+                                    <button onclick="window.open('/cart', '_self')"  class="checkout_edit"> EDIT CART </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="place_order swiper-slide">
+                        <h1 class="checkout_title"> PLACE ORDER </h1>
+                        <p class="checkout_desc">
+                            Once you've verified the information on the previous pannels you may place your order. Please press the place order button below and an employee shall contact you soon via your account's list email address.
+                        </p>
+                        <br>
+												<button onclick="window.open('/checkout', '_self')"  class="checkout_edit"> PLACE ORDER </button>
+
+                        <p onclick="window.open('/cart', '_self')" class="exit"> EXIT TO HOME </p>
+                    </div>
+
+
+                </div>
+                <!-- Add Pagination -->
+                <div class="swiper-pagination"></div>
+                <!-- Add Arrows -->
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </div>
+
+    </div>       
+
+{% endblock %}
+
+{% block footer %}
+<div class="footer footer_special">
+{% endblock %}
+
+{% block animations %}
+ <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            pagination: {
+                el: '.swiper-pagination',
+                type: 'progressbar',
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+    </script>
+{% endblock %}

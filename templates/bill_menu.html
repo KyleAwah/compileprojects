@@ -1,0 +1,436 @@
+{% from "_formhelpers.html" import render_field %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title> COMPILE PROJECTS | Receipt Maker </title>
+    <link rel="icon" href="logo/circle_logo.png">
+    <meta name="viewport" content="width=device-width , initial-scale=1">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='invoice_menu.css') }}">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <style>
+        .swiper-container {
+            width: 100%;
+            height: 100%;
+        }
+
+        .swiper-slide {
+            text-align: center;
+
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+
+        .swiper-slide:hover {
+            cursor: grab;
+        }
+
+				.menu_icons{
+					height: 15px;
+				}
+    </style>
+</head>
+
+
+<body>
+    <div class="load_screen">
+        <div class="hold_loading_screen">
+            <img class="loading_screen_logo loading" src="{{ url_for('static', filename='logo/white_mini_transparent.png') }} ">
+            <h1 class="loading_screen_text loading"> RECEIPT MAKER </h1>
+            <h2 class="loading_txt loading">
+                LOADING
+                <span class="dot">.</span>
+                <span class="dot">.</span>
+                <span class="dot">.</span>
+            </h2>
+        </div>
+    </div>
+
+    <div class="whole_app">
+        <nav class="navbar">
+            <div id="top_bar" class="open-slide" onclick="openSlideMenu()">
+                <div class="nav_top">
+                    <label id="burger_btn" for="toggle"> &#9776; </label>
+                </div>
+                <div class="nav_top logo">
+                    <img id="nav_logo_mini" src="{{ url_for('static', filename='logo/white_mini_transparent.png') }} ">
+                </div>
+
+            </div>
+        </nav>
+
+        <div id="side-menu" class="side-nav">
+            <a href="#" class="btn-close" onclick="closeSlideMenu()"> &#x2715; </a>
+            <div id="logoholder">
+                <img id="nav_logo" src="{{ url_for('static', filename='logo/white_mini_transparent.png') }} " onclick="window.open('/', '_self')">
+            </div>
+
+            <div>
+                <ul>
+										{% if current_user.is_authenticated == False %}
+                			<li onclick="window.open('/login', '_self')"> <a> LOGIN </a> </li>
+										{% endif %}
+										{% if current_user.is_authenticated %}
+                			<li onclick="window.open('/profile', '_self')"> <a> 
+											PROFILE: {{current_user.first_name}} 
+											{% if current_user.is_premium == True %}
+												<img src="{{ url_for('static', filename='icons/premium.png') }}" class="menu_icons">
+											{% endif %} 
+											</a> </li>
+										{% endif %}
+									  <li onclick="window.open('https://m.me/compileprojects', '_self')"><a> FEEDBACK </a></li>
+                    <li onclick="restart()"> <a> RESTART </a> </li>
+                    <li onclick="window.open('/invoice', '_self')"> <a> EXIT </a> </li>
+                </ul>
+            </div>
+
+            <div id="line_holder">
+                <div class="line"> </div>
+            </div>
+
+            <div>
+                <ul>
+                    <li onclick="window.open('/products', '_self')"> <a> PRODUCTS </a> </li>
+                    <li onclick="window.open('/legal', '_self')"><a> LEGAL </a></li>
+										<li onclick="window.open('/faq', '_self')"> <a> FAQ </a> </li>
+                </ul>
+            </div>
+
+            <div id="footer">
+                Receipt Maker (v1.0)
+                <br>
+                <br>
+                Designed with &#x2661; in <img src="{{ url_for('static', filename='icons/flag.png') }}" height="10px">
+                <br>
+                <span onclick="alert('You Found An Easter Egg')" id="easter_egg"> Compile Projects </span>
+                <br>
+                2020
+            </div>
+        </div>
+
+        <div id="main">
+            <div class="application">
+
+
+                <div class="add_holder_long">
+                    		{% if current_user.is_authenticated == False %}
+		<div class="ads">
+      ADS GO HERE
+    </div>
+		{% endif %}
+
+		{% if current_user.is_premium == False %}
+		<div class="ads">
+      ADS GO HERE
+    </div>
+		{% endif %}
+                </div>
+								<br>
+
+                <div class="middle">
+
+                    <div class="pannel">
+                        <div class="config_flex_holder">
+                            <div class="config_control_holder">
+                                <div class="controls">
+                                    <h1 class="top_titles"> RECEIPT MAKER </h1>
+                                    <p class="config_feature_desc">
+                                        Welcome to Receipt Maker, the simpler way to generate beautiful receipts. Navigating between each category of information in your receipt can be done through utilising the arrows or swiping to switch between panels. Settings for each panel can be adjusted in the settings panel below. Finally you can download your completed receipt on the final panel.
+                                    </p>
+                                    <div id="your_site">
+                                        <h1 class="config_titles"> SETTINGS </h1>
+                                        <br>
+                                        <button id="add_another_product" onclick="add_prod()"> &#x271A; ADD PRODUCT </button>
+                                    </div>
+                                    <br>
+                                    <form action="/bill/app" method="POST" enctype="multipart/form-data">
+                                        {{ form.csrf_token }}
+                                        {{ form.hidden_tag() }}
+
+                                        <div class="swiper-container">
+                                            <div class="swiper-wrapper">
+
+                                                <div class="swiper-slide">
+                                                    <div class="templates_card">
+                                                        <h1 class="config_titles"> RECEIPT INFORMATION </h1>
+                                                        <p>
+                                                            Begin entering general information about the receipt you want to create, the date is formatted as DAY-MONTH-YEAR. VAT Calculations can be added if it is an applicable fee to this transaction or optionally omitted (set to 0.00). Promotional Paragraph is a field which can contain information about any promotions currently occouring in your buisness this is also provided with promotional link which takes the submitted link and displays it as a QR code at the bottom of the receipt.
+                                                        </p>
+                                                        <br>
+                                                        {{ render_field(form.invoice_date) }}
+                                                        <br>
+                                                        {{ render_field(form.currency) }} 
+																												<br>
+																												{{ render_field(form.vat) }}		
+																												<br>
+                                                        {{ render_field(form.invoice_policy) }}
+																												<br>
+                                                        {{ render_field(form.invoice_number) }}
+                                                    </div>
+                                                </div>
+
+                                                <div class="swiper-slide">
+                                                    <div class="templates_card">
+                                                        <h1 class="config_titles"> YOUR BUISNESS </h1>
+                                                        <p>
+                                                            Enter information about your business and upload your logo. All fields are optional so if you do not have a logo or do not wish to enter any field they can be omitted.
+                                                        </p>
+                                                        <br>
+                                                        {{ render_field(form.buisness_name) }}
+                                                        <br>
+                                                        {{ render_field(form.buisness_address) }}
+                                                        <br>
+                                                        {{ render_field(form.logo) }}
+                                                    </div>
+                                                </div>
+
+                                                <div class="swiper-slide">
+                                                    <div class="templates_card">
+                                                        <h1 class="config_titles"> THE PURCHASE </h1>
+                                                        <p>
+                                                            Enter information about each product within this transaction such as its name, cost for a single unit as well as the number of units that were purchased within this transaction. We'll do all the heavy calculations for you!
+                                                        </p>
+                                                        <br>
+                                                        <div id="items_purchased">
+                                                            {% for field in form.product %}
+                                                            {{ render_field(field) }}
+                                                            <br>
+                                                            {% endfor %}
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="swiper-slide">
+                                                    <div class="download_btn_holder">
+                                                        <h1 class="config_titles">
+                                                            YOUR RECEIPT IS READY!
+                                                        </h1>
+                                                        <p>
+                                                            Thank you for choosing Receipt Maker! We hope you've enjoyed the experience of using one of our products. Please feel free to leave feedback on your experience and/or view more products by Compile Projects through the sidebar menu.
+                                                        </p>
+                                                        <br>
+                                                        {{ form.submit_main }}
+                                                        <div class="preview_holder">
+                                                            <a class="exit_btn" onclick="restart()"> CREATE A NEW RECEIPT </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Add Pagination -->
+                                            <div class="swiper-pagination"></div>
+                                            <!-- Add Arrows -->
+                                            <div class="swiper-button-next"></div>
+                                            <div class="swiper-button-prev"></div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div class="config_control_holder">
+                                <div id="your_site">
+                                    <h1 class="top_titles"> YOUR RECEIPT </h1>
+
+                                    <br>
+                                    <div id="entice_customer_website_preview">
+                                        {% if 'data' in session %}
+                                        <iframe id="invoice_preview" src="/bill/preview">
+                                            <p>
+                                                &#x26A0; WARNING: Your browser does not support iframe
+                                                <br>
+                                                (live preview of your receipt is unavailable)
+                                                <br><br>
+                                                you can still use the full functionality of Receipt Maker and generate your receipt however you will not be able to preview live updates.
+                                            </p>
+                                        </iframe>
+                                        {% endif %}
+                                        {% if 'data' not in session %}
+                                        <h1 class="config_titles">
+                                            RECEIPT PREVIEWER (BETA)
+                                        </h1>
+                                        <p>
+                                            Begin entering the credentials of your receipt and this live preview will update to reflect the changes.
+                                            <br><br>
+                                            <span style="background-color: red;">
+                                                &#x26A0; RECEIPT PREVIEWER is currently offline
+                                            </span>
+                                            <br>
+                                            Receipts can still be generated however a preview will only appear after the receipt is generated. We appologise in advance for any inconvenience caused.
+                                        </p>
+                                        {% endif %}
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+								<br>
+                <div class="add_holder_long">
+                    		{% if current_user.is_authenticated == False %}
+		<div class="ads">
+      ADS GO HERE
+    </div>
+		{% endif %}
+
+		{% if current_user.is_premium == False %}
+		<div class="ads">
+      ADS GO HERE
+    </div>
+		{% endif %}
+                </div>
+
+								<br>
+                <div class="add_holder_long">
+                    		{% if current_user.is_authenticated == False %}
+		<div class="ads">
+      ADS GO HERE
+    </div>
+		{% endif %}
+
+		{% if current_user.is_premium == False %}
+		<div class="ads">
+      ADS GO HERE
+    </div>
+		{% endif %}
+                </div>
+
+            </div>
+            <br><br>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/ScrollTrigger.min.js"></script>
+
+    <script>
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        async function stay_loaded() {
+            await sleep(4000);
+            const loader = document.querySelector(".load_screen");
+            loader.className += " hidden";
+        }
+
+        function loading() {
+            var main = gsap.timeline({
+                scrollTrigger: {
+                    trigger: '.load_screen',
+                },
+                defaults: {
+                    duration: 1,
+                    opacity: 0
+                }
+            })
+
+            main
+                .from('.loading', {
+                    y: 30,
+                    stagger: 0.5
+                })
+                .from('.dot', {
+                    stagger: 0.5
+                })
+                .add(stay_loaded())
+        }
+
+        window.addEventListener("load", loading());
+    </script>
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            pagination: {
+                el: '.swiper-pagination',
+                type: 'progressbar',
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+    </script>
+
+    <script>
+        function openSlideMenu() {
+            document.getElementById('side-menu').style.width = '300px';
+            document.getElementById('main').style.marginLeft = '360px';
+            document.getElementById('top_bar').style.opacity = '0';
+        }
+
+        function closeSlideMenu() {
+            document.getElementById('side-menu').style.width = '0';
+            document.getElementById('main').style.marginLeft = '0';
+            document.getElementById('top_bar').style.opacity = '100';
+        }
+
+        function remove_logo() {
+            document.getElementById('logo_in_table').style.display = 'none';
+        }
+
+        function add_logo() {
+            document.getElementById('logo_in_table').style.display = 'table-row';
+        }
+
+        function restart() {
+            location.reload();
+        }
+    </script>
+
+    <script>
+        const target = document.getElementById('items_purchased');
+        var num = 1;
+
+        function add_prod() {
+            var new_prod = document.createElement('dt');
+            var prod_data = `
+                <label for="product-${num}">Product-${num}</label>
+            `
+            new_prod.innerHTML = prod_data;
+            target.append(new_prod);
+            new_prod = document.createElement('dd');
+            prod_data = `
+                <table id="product-${num}">
+                    <tbody>
+                        <tr>
+                            <th><label for="product-${num}-product_name">Product Name</label></th>
+                            <td><input id="product-${num}-product_name" name="product-${num}-product_name" placeholder="Product Name" type="text" value=""></td>
+                        </tr>
+                        <tr>
+                            <th><label for="product-${num}-product_QTY">Product QTY</label></th>
+                            <td><input id="product-${num}-product_QTY" name="product-${num}-product_QTY" type="text" placeholder="12" value=""></td>
+                        </tr>
+                        <tr>
+                            <th><label for="product-${num}-product_cost_per">Cost Per Product</label></th>
+                            <td><input id="product-${num}-product_cost_per" name="product-${num}-product_cost_per" placeholder="15.99" type="text" value=""></td>
+                        </tr>
+                    </tbody>
+                </table>
+            `
+            new_prod.innerHTML = prod_data;
+            target.append(new_prod);
+            new_prod = document.createElement('br');
+            target.append(new_prod);
+            num++;
+        }
+    </script>
+
+
+</body>
+
+</html>

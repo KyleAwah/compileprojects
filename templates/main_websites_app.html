@@ -1,0 +1,1909 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title> COMPILE PROJECTS | Website Configurator </title>
+    <link rel="icon" href="logo/circle_logo.png">
+    <meta name="viewport" content="width=device-width , initial-scale=1">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='main_websites_app.css') }}">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <style>
+        .swiper-container {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+
+<body>
+    <div class="load_screen">
+        <div class="hold_loading_screen">
+            <img class="loading_screen_logo loading" src="{{ url_for('static', filename='logo/white_mini_transparent.png') }}">
+            <h1 class="loading_screen_text loading"> WEBSITE CONFIGURATOR (BETA) </h1>
+            <h2 class="loading_txt loading">
+                LOADING
+                <span class="dot">.</span>
+                <span class="dot">.</span>
+                <span class="dot">.</span>
+            </h2>
+        </div>
+    </div>
+
+    <div id="floating_price_holder">
+        <h1 class="final_price_holder"> 
+            TOTAL
+            <br>
+            <span class="price">
+                $
+                <span class="number"> 200 </span>
+            </span>
+            TTD
+        </h1>
+    </div>
+
+    <div class="full_screen" onclick="remove_desc()">
+        <div id="config_desc" class="config_desc">
+            <label onclick="remove_desc()" id="burger_btn" for="toggle"> &#x2715; </label>
+            <h1 class="config_titles">
+                DESCRIPTION
+            </h1>
+            <p class="config_feature_desc">
+                Click or tap on a template or feature and i'll describe what it is for you!
+            </p>
+        </div>
+    </div>
+
+    <div class="whole_app">
+        <nav class="navbar">
+            <div id="top_bar" class="open-slide" onclick="openSlideMenu()">
+                <div class="nav_top">
+                    <label id="burger_btn" for="toggle"> &#9776; </label>
+                </div>
+                <div class="nav_top logo">
+                    <img id="nav_logo_mini" src="{{ url_for('static', filename='logo/white_mini_transparent.png') }}">
+                </div>
+
+            </div>
+        </nav>
+
+        <div id="side-menu" class="side-nav">
+            <a href="#" class="btn-close" onclick="closeSlideMenu()"> &#x2715; </a>
+            <div id="logoholder">
+                <img id="nav_logo" src="{{ url_for('static', filename='logo/white_mini_transparent.png') }}" onclick="window.open('/', '_self')">
+            </div>
+
+            <div>
+                <ul>
+                    <li onclick="window.open('/products', '_self')"> <a> PRODUCTS </a> </li>
+                		<li onclick="window.open('/order', '_self')"> <a> ORDERING PROCESS </a> </li>
+                		<li onclick="window.open('/aboutus', '_self')"> <a> ABOUT US </a> </li>
+										<li onclick="window.open('/privacy', '_self')" ><a> PRIVACY POLICY </a></li>
+                </ul>
+            </div>
+
+            <div id="line_holder">
+                <div class="line"> </div>
+            </div>
+
+            <div>
+                <ul>
+                    <li onclick="restart()"> <a> RESTART </a> </li>
+                    <li onclick="window.open('/websites', '_self')"> <a> EXIT </a> </li>
+                </ul>
+            </div>
+
+            <div id="footer">
+                Website Configurator (v1.0)
+                <br>
+                <br>
+                Designed with &#x2661; in <img src="{{ url_for('static', filename='icons/flag.png') }}" height="10px">
+                <br>
+                <span onclick="alert('You Found An Easter Egg')" id="easter_egg"> Compile Projects </span>
+                <br>
+                2020
+            </div>
+        </div>
+
+        <div id="main">
+            <div class="application">
+
+                <div class="add_holder_long">
+												{% if current_user.is_authenticated == False %}
+		<div class="ads">
+      ADS GO HERE
+    </div>
+		{% endif %}
+
+		{% if current_user.is_premium == False %}
+		<div class="ads">
+      ADS GO HERE
+    </div>
+		{% endif %}
+                </div>
+
+
+                <div class="middle">
+
+                    <div class="pannel">
+                        <div class="config_flex_holder">
+                            <div class="config_control_holder">
+                                <div class="controls">
+                                    <h1 class="top_titles"> WEBSITE CONFIGURATOR (BETA) </h1>
+                                    <p class="config_feature_desc">
+                                        Welcome to our website configurator, begin by selecting a template or feature to have it described and then you can optionally add this feature or preview another. when you're finished you can proceed to checkout and we'll begin making your new website!
+                                    </p>
+
+                                    <div class="swiper-container">
+                                        <div class="swiper-wrapper">
+                                            <div class="swiper-slide">
+
+                                                <div class="templates_card">
+                                                    <h1 class="config_titles"> TEMPLATES </h1>
+                                                    <br>
+
+                                                    <div id="template_standard_btn">
+                                                        <button onclick="desc_template_standard()" class="standard_btn"> STANDARD </button>
+                                                    </div>
+
+                                                    <br>
+                                                    <div id="template_custom_btn">
+                                                        <button onclick="desc_template_custom()" class="custom_template_btn"> &#x2605; CUSTOM </button>
+                                                    </div>
+																										
+																										<!--
+                                                    <br>
+                                                    <div id="template_sedonia_btn">
+                                                        <button onclick="desc_template_sedonia()" class="add_another_product"> &#x271A; SEDONIA </button>
+                                                    </div>
+
+                                                    <br>
+                                                    <div id="template_kyrat_btn">
+                                                        <button onclick="desc_template_kyrat()" class="add_another_product"> &#x271A; KYRAT </button>
+                                                    </div>
+																										-->
+																										
+                                                </div>
+                                            </div>
+                                            <div class="swiper-slide">
+                                                <div class="templates_card">
+                                                    <h1 class="config_titles"> ADDITIONAL FEATURES </h1>
+                                                    <br>
+                                                    <div id="desktop_animations_btn">
+                                                        <button onclick="desc_desktop_animations()" class="add_another_product"> &#x271A; EXTRA PAGE </button>
+                                                    </div>
+
+                                                    <br>
+                                                    <div id="mobile_animations_btn">
+                                                        <button onclick="desc_mobile_animations()" class="add_another_product"> &#x271A; ANIMATIONS </button>
+                                                    </div>
+
+                                                    <br>
+                                                    <div id="backend_btn">
+                                                        <button onclick="desc_backend()" class="add_another_product"> &#x271A; BACKEND
+                                                        </button>
+                                                    </div>
+
+                                                    <br>
+                                                    <div id="custom_domain_btn">
+                                                        <button onclick="desc_domain_name()" class="add_another_product"> &#x271A; CUSTOM WEBSITE NAME
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="swiper-slide">
+                                                <div class="preview_holder">
+                                                    <h1 class="final_price_holder">
+                                                        TOTAL
+                                                        <br>
+                                                        <span class="price">
+                                                            $
+                                                            <span class="number"> 200 </span>
+                                                        </span>
+                                                        TTD
+                                                    </h1>
+                                                </div>
+                                                <div class="preview_holder">
+                                                    <button class="submit_btn"> PROCEED TO CHECKOUT </button>
+                                                </div>
+                                                <div class="preview_holder">
+                                                    <a class="exit_btn" onclick="restart()"> CONFIGURE AGAIN </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Add Pagination -->
+                                        <div class="swiper-pagination"></div>
+                                        <!-- Add Arrows -->
+                                        <div class="swiper-button-next"></div>
+                                        <div class="swiper-button-prev"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="config_control_holder">
+                                <div id="your_site">
+                                    <h1 class="top_titles"> YOUR WEBSITE </h1>
+                                    
+                                    <br>
+                                    <div id="entice_customer_website_preview">
+                                        <img id="website_display" src="{{ url_for('static', filename='images/desktop_screenshot.png') }}">
+                                    </div>
+
+                                    <br>
+                                    <h1 class="sub_titles"> TEMPLATE </h1>
+
+                                    <br>
+                                    <div id="your_website_template">
+                                        <button onclick="desc_template_standard()" class="standard_btn"> STANDARD </button>
+                                    </div>
+                                    <br>
+
+                                    <h1 class="sub_titles"> FEATURES </h1>
+                                    <br>
+
+                                    <button onclick="desc_mobile()" class="standard_btn"> MOBILE SCALING </button>
+
+                                    <div>
+                                        <br>
+                                        <button onclick="desc_pages()" class="standard_btn"> TWO PAGES </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="preview_holder">
+                            <a class="exit_btn" onclick="window.open('/websites', '_self')"> EXIT CONFIGURATOR </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="add_holder_long">
+												{% if current_user.is_authenticated == False %}
+		<div class="ads">
+      ADS GO HERE
+    </div>
+		{% endif %}
+
+		{% if current_user.is_premium == False %}
+		<div class="ads">
+      ADS GO HERE
+    </div>
+		{% endif %}
+                </div>
+
+                <div class="add_holder_long">
+                    		{% if current_user.is_authenticated == False %}
+		<div class="ads">
+      ADS GO HERE
+    </div>
+		{% endif %}
+
+		{% if current_user.is_premium == False %}
+		<div class="ads">
+      ADS GO HERE
+    </div>
+		{% endif %}
+                </div>
+
+            </div>
+            <br><br>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/ScrollTrigger.min.js"></script>
+
+    <script>
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        async function stay_loaded() {
+            await sleep(4000);
+            const loader = document.querySelector(".load_screen");
+            loader.className += " hidden";
+        }
+
+        function loading() {
+            var main = gsap.timeline({
+                scrollTrigger: {
+                    trigger: '.load_screen',
+                },
+                defaults: {
+                    duration: 1,
+                    opacity: 0
+                }
+            })
+
+            main
+                .from('.loading', {
+                    y: 30,
+                    stagger: 0.5
+                })
+                .from('.dot', {
+                    stagger: 0.5
+                })
+                .add(stay_loaded())
+        }
+
+        window.addEventListener("load", loading());
+    </script>
+    
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            pagination: {
+                el: '.swiper-pagination',
+                type: 'progressbar',
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+    </script>
+
+    <script>
+        function openSlideMenu() {
+            document.getElementById('side-menu').style.width = '300px';
+            document.getElementById('main').style.marginLeft = '360px';
+            document.getElementById('top_bar').style.opacity = '0';
+            document.getElementById('floating_price_holder').style.opacity = '0';
+        }
+
+        function closeSlideMenu() {
+            document.getElementById('side-menu').style.width = '0';
+            document.getElementById('main').style.marginLeft = '0';
+            document.getElementById('top_bar').style.opacity = '100';
+            document.getElementById('floating_price_holder').style.opacity = '100';
+        }
+
+        function remove_logo() {
+            document.getElementById('logo_in_table').style.display = 'none';
+        }
+
+        function add_logo() {
+            document.getElementById('logo_in_table').style.display = 'table-row';
+        }
+
+        function restart() {
+            location.reload();
+        }
+    </script>
+
+    <script>
+        const desc = document.querySelector(".full_screen");
+
+        function add_desc() {
+            desc.className += " hidden";
+        }
+
+        function remove_desc() {
+            desc.className = "full_screen";
+        }
+    </script>
+
+    <script>
+        var display = document.getElementById('config_desc');
+        var your_website = document.getElementById('your_site');
+
+        var start_num = 1;
+
+        const DESCRIPTION_mobile_scaling = "With smartphones accounting for the majority of website traffic in the modern day, Mobile Scaling allows for you website to be ready for these types of connections, your website will dynamically adapt to the screen size of the device it is being displayed on and scale its contents accordingly to be both usable and aesthetically appealing.";
+        const DESCRIPTION_standard_pages = "Spread your ideas across two canvases, Two pages are included as standard with every website we offer which means that you'll have the ability to display your content across two individual html files or / paths if the backend feature is applied such as www.yourwebsite.com/thispage.";
+        const DESCRIPTION_extra_pages = "Add an additional page to your website to allow for another new canvas that you can use to spread your ideas unto, multiple new pages can be added.";
+        const DESCRIPTION_animations = "Increase the interactivity and aesthetic of your website through the use of animations, this allows for moving components of your website to occur when a user scrolls to this given section. ";
+        const DESCRIPTION_backend = "Backend programming allows for the interconnection of the html files so that you website can be accessed via routes eg. www.yourwebsitename.com/page instead of just raw files on your computer. your finished website will be able to be accessed by anyone around the world at www.yourwebsitename.herokuapp.com";
+        const DESCRIPTION_domain_name = "Customise the address of your website to be anything you want it to be, your website can then be found at www.yourwebsitename.com ";
+        const DESCRIPTION_template_custom = "Create a fully unique template for your website to allow for a new design thats all yours";
+        const DESCRIPTION_template_standard = "This template packs all the essential functionality of a modern website in an aesthetically pleasing and minimalist website design";
+        const DESCRIPTION_template_sedonia = "Sedonia takes your website to the desert combining silky design and smooth operations";
+        const DESCRIPTION_template_kyrat = "Kyrat ";
+
+        var backend_is_there = false;
+        var custom_is_there = false;
+        var recent_add_extra_page = false;
+        var recent_remove_extra_page = false;
+        var recent_add_animations = false;
+        var recent_remove_animations = false;
+        var recent_add_backend = false;
+        var recent_remove_backend = false;
+        var recent_remove_backend_and_name = false;
+        var recent_add_custom_name = false;
+        var recent_remove_custom_name = false;
+        var recent_add_template_custom = false;
+        var recent_remove_template_custom = false;
+        var recent_add_template_sedonia = false;
+        var recent_remove_template_sedonia = false;
+        var recent_add_template_kyrat = false;
+        var recent_remove_template_kyrat = false;
+
+        var active_template_custom = false;
+        var active_template_sedonia = false;
+        var active_template_kyrat = false;
+
+
+
+        /* UPDATE PRICES */
+
+        function update_price_add(number) {
+            var price_display = document.getElementsByClassName('number');
+            var current_value = price_display[0].innerHTML;
+            var new_value = parseInt(current_value) + parseInt(number);
+
+            price_display[0].innerHTML = new_value;
+            price_display[1].innerHTML = new_value;
+        }
+
+        function update_price_sub(number) {
+            var price_display = document.getElementsByClassName('number');
+            var current_value = price_display[0].innerHTML;
+            var new_value = parseInt(current_value) - parseInt(number);
+
+            price_display[0].innerHTML = new_value;
+            price_display[1].innerHTML = new_value;
+        }
+
+
+
+
+        /* TEMPLATES */
+
+        function desc_template_standard() {
+            add_desc();
+
+            while (display.firstChild) {
+                display.removeChild(display.firstChild);
+            }
+
+            var desc_img = document.createElement('div');
+            var desc_img_content = `
+                <label onclick="remove_desc()" id="burger_btn" for="toggle"> &#x2715; </label>
+                <div class="hold_all_display">
+                    <img class="img_display" src="{{ url_for('static', filename='images/desktop_screenshot.png') }}">
+                </div>
+                <br>
+            `
+            desc_img.innerHTML = desc_img_content;
+            display.append(desc_img);
+
+            var desc_title = document.createElement('h1');
+            desc_title.className = "config_titles";
+            var desc_title_data = `
+                STANDARD (TEMPLATE)
+            `
+            desc_title.innerHTML = desc_title_data;
+            display.append(desc_title);
+
+            var desc_content = document.createElement('p');
+            desc_content.className = "config_feature_desc";
+            var desc_content_data = `
+                ${DESCRIPTION_template_standard}
+            `
+            desc_content.innerHTML = desc_content_data;
+            display.append(desc_content);
+
+            var btn = document.createElement('div');
+            btn.className = "config_center_desc_btn";
+            var btn_content = `
+                <button class="standard_btn"> INCLUDED
+                </button>
+            `
+            btn.innerHTML = btn_content;
+            display.append(btn);
+        }
+
+        function desc_template_custom() {
+            add_desc();
+
+            while (display.firstChild) {
+                display.removeChild(display.firstChild);
+            }
+
+            var desc_img = document.createElement('div');
+            var desc_img_content = `
+                <label onclick="remove_desc()" id="burger_btn" for="toggle"> &#x2715; </label>  
+                <div class="hold_all_display">
+                    <img class="img_display" src="{{ url_for('static', filename='images/desktop_screenshot.png') }}">
+                </div>
+                <br>
+            `
+            desc_img.innerHTML = desc_img_content;
+            display.append(desc_img);
+
+            var desc_title = document.createElement('h1');
+            desc_title.className = "config_titles";
+            var desc_title_data = `
+                CUSTOM (TEMPLATE)
+                <br>
+                <span class="desc_price">
+                    &#x271A; $500 TTD
+                </span>
+            `
+            desc_title.innerHTML = desc_title_data;
+            display.append(desc_title);
+
+            if (recent_remove_template_custom == true) {
+                var desc_img = document.createElement('div');
+                desc_img.className = "warning_message_holder";
+                var desc_img_content = `
+                    <div class="warning_message">
+                        &#x26A0; CUSTOM (TEMPLATE) REMOVED
+                    </div>
+                `
+                desc_img.innerHTML = desc_img_content;
+                display.append(desc_img);
+            }
+
+            var desc_content = document.createElement('p');
+            desc_content.className = "config_feature_desc";
+            var desc_content_data = `
+                ${DESCRIPTION_template_custom}
+            `
+            desc_content.innerHTML = desc_content_data;
+            display.append(desc_content);
+
+            var btn = document.createElement('div');
+            btn.className = "config_center_desc_btn";
+            var btn_content = `
+                <button onclick="add_template_custom()" class="custom_template_btn"> &#x271A; ADD CUSTOM (TEMPLATE)
+                </button>
+            `
+            btn.innerHTML = btn_content;
+            display.append(btn);
+        }
+
+        function remove_display_template_custom() {
+            add_desc();
+
+            while (display.firstChild) {
+                display.removeChild(display.firstChild);
+            }
+
+            var desc_img = document.createElement('div');
+            var desc_img_content = `
+                <label onclick="remove_desc()" id="burger_btn" for="toggle"> &#x2715; </label>         
+                <div class="hold_all_display">
+                    <img class="img_display" src="{{ url_for('static', filename='images/desktop_screenshot.png') }}">
+                </div>
+                <br>
+            `
+            desc_img.innerHTML = desc_img_content;
+            display.append(desc_img);
+
+            var desc_title = document.createElement('h1');
+            desc_title.className = "config_titles";
+            var desc_title_data = `
+                CUSTOM (TEMPLATE)
+                <br>
+                <span class="desc_price_minus">
+                    - $500 TTD
+                </span>
+            `
+            desc_title.innerHTML = desc_title_data;
+            display.append(desc_title);
+
+            if (recent_add_template_custom == true) {
+                var desc_img = document.createElement('div');
+                desc_img.className = "warning_message_holder";
+                var desc_img_content = `
+                    <div class="warning_message_good">
+                        &#x2714; SUCCESS: CUSTOM (TEMPLATE) ADDED
+                    </div>
+                `
+                desc_img.innerHTML = desc_img_content;
+                display.append(desc_img);
+            }
+
+            var desc_content = document.createElement('p');
+            desc_content.className = "config_feature_desc";
+            var desc_content_data = `
+                ${DESCRIPTION_template_custom}
+            `
+            desc_content.innerHTML = desc_content_data;
+            display.append(desc_content);
+
+            var btn = document.createElement('div');
+            btn.className = "config_center_desc_btn";
+            var btn_content = `
+                <button onclick="remove_template_custom()" class="remove_btn"> &#x2715; REMOVE CUSTOM (TEMPLATE)
+                </button>
+            `
+            btn.innerHTML = btn_content;
+            display.append(btn);
+        }
+
+        function add_template_custom() {
+            remove_desc();
+            if (active_template_sedonia == true) {
+                remove_template_sedonia();
+                active_template_sedonia = false;
+            }
+
+            if (active_template_kyrat == true) {
+                remove_template_kyrat();
+                active_template_kyrat = false;
+            }
+
+            recent_add_template_custom = true;
+            remove_display_template_custom();
+            recent_add_template_custom = false;
+
+            var remove_btn = document.getElementById('template_custom_btn');
+            while (remove_btn.firstChild) {
+                remove_btn.removeChild(remove_btn.firstChild);
+            }
+
+            var div_data = `
+                <button onclick="remove_display_template_custom()" class="custom_template_btn"> &#x2605; CUSTOM </button>
+            `
+            var target = document.getElementById('your_website_template');
+            target.innerHTML = div_data;
+
+            update_price_add(500);
+            active_template_custom = true;
+        }
+
+        function remove_template_custom() {
+            remove_desc();
+
+            target = document.getElementById('your_website_template');
+
+            var div_data = `
+                <button onclick="desc_template_standard()" class="standard_btn"> STANDARD </button>
+            `
+            target.innerHTML = div_data;
+
+
+            var target_2 = document.getElementById('template_custom_btn');
+            var btn = document.createElement('div');
+            btn.id = "your_website_remove_template_custom";
+            var div_data = `
+                <button onclick="desc_template_custom()" class="custom_template_btn"> &#x2605; CUSTOM </button>
+            `
+            btn.innerHTML = div_data;
+            target_2.append(btn);
+
+            recent_remove_template_custom = true;
+            desc_template_custom();
+            recent_remove_template_custom = false;
+
+            update_price_sub(500);
+            active_template_custom = false;
+        }
+
+        function desc_template_sedonia() {
+            add_desc();
+
+            while (display.firstChild) {
+                display.removeChild(display.firstChild);
+            }
+
+            var desc_img = document.createElement('div');
+            var desc_img_content = `
+                <label onclick="remove_desc()" id="burger_btn" for="toggle"> &#x2715; </label>         
+                <div class="hold_all_display">
+                    <img class="img_display" src="{{ url_for('static', filename='images/desktop_screenshot.png') }}">
+                </div>
+                <br>
+            `
+            desc_img.innerHTML = desc_img_content;
+            display.append(desc_img);
+
+            var desc_title = document.createElement('h1');
+            desc_title.className = "config_titles";
+            var desc_title_data = `
+                SEDONIA (TEMPLATE)
+                <br>
+                <span class="desc_price">
+                    &#x271A; $200 TTD
+                </span>
+            `
+            desc_title.innerHTML = desc_title_data;
+            display.append(desc_title);
+
+            if (recent_remove_template_sedonia == true) {
+                var desc_img = document.createElement('div');
+                desc_img.className = "warning_message_holder";
+                var desc_img_content = `
+                    <div class="warning_message">
+                        &#x26A0; SEDONIA (TEMPLATE) REMOVED
+                    </div>
+                `
+                desc_img.innerHTML = desc_img_content;
+                display.append(desc_img);
+            }
+
+            var desc_content = document.createElement('p');
+            desc_content.className = "config_feature_desc";
+            var desc_content_data = `
+                ${DESCRIPTION_template_sedonia}
+            `
+            desc_content.innerHTML = desc_content_data;
+            display.append(desc_content);
+
+            var btn = document.createElement('div');
+            btn.className = "config_center_desc_btn";
+            var btn_content = `
+                <button onclick="add_template_sedonia()" class="add_another_product"> &#x271A; ADD SEDONIA (TEMPLATE)
+                </button>
+            `
+            btn.innerHTML = btn_content;
+            display.append(btn);
+        }
+
+        function remove_display_template_sedonia() {
+            add_desc();
+
+            while (display.firstChild) {
+                display.removeChild(display.firstChild);
+            }
+
+            var desc_img = document.createElement('div');
+            var desc_img_content = `
+                <label onclick="remove_desc()" id="burger_btn" for="toggle"> &#x2715; </label>         
+                <div class="hold_all_display">
+                    <img class="img_display" src="{{ url_for('static', filename='images/desktop_screenshot.png') }}">
+                </div>
+                <br>
+            `
+            desc_img.innerHTML = desc_img_content;
+            display.append(desc_img);
+
+            var desc_title = document.createElement('h1');
+            desc_title.className = "config_titles";
+            var desc_title_data = `
+                SEDONIA (TEMPLATE)
+                <br>
+                <span class="desc_price_minus">
+                    - $200 TTD
+                </span>
+            `
+            desc_title.innerHTML = desc_title_data;
+            display.append(desc_title);
+
+            if (recent_add_template_sedonia == true) {
+                var desc_img = document.createElement('div');
+                desc_img.className = "warning_message_holder";
+                var desc_img_content = `
+                    <div class="warning_message_good">
+                        &#x2714; SUCCESS: SEDONIA (TEMPLATE) ADDED
+                    </div>
+                `
+                desc_img.innerHTML = desc_img_content;
+                display.append(desc_img);
+            }
+
+            var desc_content = document.createElement('p');
+            desc_content.className = "config_feature_desc";
+            var desc_content_data = `
+                ${DESCRIPTION_template_sedonia}
+            `
+            desc_content.innerHTML = desc_content_data;
+            display.append(desc_content);
+
+            var btn = document.createElement('div');
+            btn.className = "config_center_desc_btn";
+            var btn_content = `
+                <button onclick="remove_template_sedonia()" class="remove_btn"> &#x2715; SEDONIA CUSTOM (TEMPLATE)
+                </button>
+            `
+            btn.innerHTML = btn_content;
+            display.append(btn);
+        }
+
+        function add_template_sedonia() {
+            remove_desc();
+
+            if (active_template_custom == true) {
+                remove_template_custom();
+                active_template_custom = false;
+            }
+
+            if (active_template_kyrat == true) {
+                remove_template_kyrat();
+                active_template_kyrat = false;
+            }
+
+            recent_add_template_sedonia = true;
+            remove_display_template_sedonia();
+            recent_add_template_sedonia = false;
+
+            var remove_btn = document.getElementById('template_sedonia_btn');
+            while (remove_btn.firstChild) {
+                remove_btn.removeChild(remove_btn.firstChild);
+            }
+
+            var div_data = `
+                <button onclick="remove_display_template_sedonia()" class="add_another_product"> SEDONIA </button>
+            `
+            var target = document.getElementById('your_website_template');
+            target.innerHTML = div_data;
+
+            update_price_add(200);
+            active_template_sedonia = true;
+        }
+
+        function remove_template_sedonia() {
+            remove_desc();
+
+            target = document.getElementById('your_website_template');
+
+            var div_data = `
+                <button onclick="desc_template_standard()" class="standard_btn"> STANDARD </button>
+            `
+            target.innerHTML = div_data;
+
+
+            var target_2 = document.getElementById('template_sedonia_btn');
+            var btn = document.createElement('div');
+            btn.id = "your_website_remove_template_sedonia";
+            var div_data = `
+                <button onclick="desc_template_sedonia()" class="add_another_product"> SEDONIA </button>
+            `
+            btn.innerHTML = div_data;
+            target_2.append(btn);
+
+            recent_remove_template_sedonia = true;
+            desc_template_sedonia();
+            recent_remove_template_sedonia = false;
+
+            update_price_sub(200);
+            active_template_sedonia = false;
+        }
+
+        function desc_template_kyrat() {
+            add_desc();
+
+            while (display.firstChild) {
+                display.removeChild(display.firstChild);
+            }
+
+            var desc_img = document.createElement('div');
+            var desc_img_content = `
+                <label onclick="remove_desc()" id="burger_btn" for="toggle"> &#x2715; </label>         
+                <div class="hold_all_display">
+                    <img class="img_display" src="{{ url_for('static', filename='images/desktop_screenshot.png') }}">
+                </div>
+                <br>
+            `
+            desc_img.innerHTML = desc_img_content;
+            display.append(desc_img);
+
+            var desc_title = document.createElement('h1');
+            desc_title.className = "config_titles";
+            var desc_title_data = `
+                KYRAT (TEMPLATE)
+                <br>
+                <span class="desc_price">
+                    &#x271A; $200 TTD
+                </span>
+            `
+            desc_title.innerHTML = desc_title_data;
+            display.append(desc_title);
+
+            if (recent_remove_template_kyrat == true) {
+                var desc_img = document.createElement('div');
+                desc_img.className = "warning_message_holder";
+                var desc_img_content = `
+                    <div class="warning_message">
+                        &#x26A0; KYRAT (TEMPLATE) REMOVED
+                    </div>
+                `
+                desc_img.innerHTML = desc_img_content;
+                display.append(desc_img);
+            }
+
+            var desc_content = document.createElement('p');
+            desc_content.className = "config_feature_desc";
+            var desc_content_data = `
+                ${DESCRIPTION_template_kyrat}
+            `
+            desc_content.innerHTML = desc_content_data;
+            display.append(desc_content);
+
+            var btn = document.createElement('div');
+            btn.className = "config_center_desc_btn";
+            var btn_content = `
+                <button onclick="add_template_kyrat()" class="add_another_product"> &#x271A; ADD KYRAT (TEMPLATE)
+                </button>
+            `
+            btn.innerHTML = btn_content;
+            display.append(btn);
+        }
+
+        function remove_display_template_kyrat() {
+            add_desc();
+
+            while (display.firstChild) {
+                display.removeChild(display.firstChild);
+            }
+
+            var desc_img = document.createElement('div');
+            var desc_img_content = `
+                <label onclick="remove_desc()" id="burger_btn" for="toggle"> &#x2715; </label>         
+                <div class="hold_all_display">
+                    <img class="img_display" src="{{ url_for('static', filename='images/desktop_screenshot.png') }}">
+                </div>
+                <br>
+            `
+            desc_img.innerHTML = desc_img_content;
+            display.append(desc_img);
+
+            var desc_title = document.createElement('h1');
+            desc_title.className = "config_titles";
+            var desc_title_data = `
+                KYRAT (TEMPLATE)
+                <br>
+                <span class="desc_price_minus">
+                    - $200 TTD
+                </span>
+            `
+            desc_title.innerHTML = desc_title_data;
+            display.append(desc_title);
+
+            if (recent_add_template_kyrat == true) {
+                var desc_img = document.createElement('div');
+                desc_img.className = "warning_message_holder";
+                var desc_img_content = `
+                    <div class="warning_message_good">
+                        &#x2714; SUCCESS: KYRAT (TEMPLATE) ADDED
+                    </div>
+                `
+                desc_img.innerHTML = desc_img_content;
+                display.append(desc_img);
+            }
+
+            var desc_content = document.createElement('p');
+            desc_content.className = "config_feature_desc";
+            var desc_content_data = `
+                ${DESCRIPTION_template_kyrat}
+            `
+            desc_content.innerHTML = desc_content_data;
+            display.append(desc_content);
+
+            var btn = document.createElement('div');
+            btn.className = "config_center_desc_btn";
+            var btn_content = `
+                <button onclick="remove_template_kyrat()" class="remove_btn"> &#x2715; KYRAT CUSTOM (TEMPLATE)
+                </button>
+            `
+            btn.innerHTML = btn_content;
+            display.append(btn);
+        }
+
+        function add_template_kyrat() {
+            remove_desc();
+
+            if (active_template_custom == true) {
+                remove_template_custom();
+                active_template_custom = false;
+            }
+
+            if (active_template_sedonia == true) {
+                remove_template_sedonia();
+                active_template_sedonia = false;
+            }
+
+            recent_add_template_kyrat = true;
+            remove_display_template_kyrat();
+            recent_add_template_kyrat = false;
+
+            var remove_btn = document.getElementById('template_kyrat_btn');
+            while (remove_btn.firstChild) {
+                remove_btn.removeChild(remove_btn.firstChild);
+            }
+
+            var div_data = `
+                <button onclick="remove_display_template_kyrat()" class="add_another_product"> KYRAT </button>
+            `
+            var target = document.getElementById('your_website_template');
+            target.innerHTML = div_data;
+
+            update_price_add(200);
+            active_template_kyrat = true;
+        }
+
+        function remove_template_kyrat() {
+            remove_desc();
+
+            target = document.getElementById('your_website_template');
+
+            var div_data = `
+                <button onclick="desc_template_standard()" class="standard_btn"> STANDARD </button>
+            `
+            target.innerHTML = div_data;
+
+
+            var target_2 = document.getElementById('template_kyrat_btn');
+            var btn = document.createElement('div');
+            btn.id = "your_website_remove_template_kyrat";
+            var div_data = `
+                <button onclick="desc_template_kyrat()" class="add_another_product"> KYRAT </button>
+            `
+            btn.innerHTML = div_data;
+            target_2.append(btn);
+
+            recent_remove_template_kyrat = true;
+            desc_template_kyrat();
+            recent_remove_template_kyrat = false;
+
+            update_price_sub(200);
+            active_template_kyrat = false;
+        }
+
+
+
+        /* STANDARD FEATURES */
+
+        function desc_mobile() {
+            add_desc();
+
+            while (display.firstChild) {
+                display.removeChild(display.firstChild);
+            }
+
+            var desc_img = document.createElement('div');
+            var desc_img_content = `
+                <label onclick="remove_desc()" id="burger_btn" for="toggle"> &#x2715; </label>         
+                <div class="hold_all_display">
+                    <img class="img_display" src="{{ url_for('static', filename='images/hand_close.jpg') }} ">
+                </div>
+                <br>
+            `
+            desc_img.innerHTML = desc_img_content;
+            display.append(desc_img);
+
+            var desc_title = document.createElement('h1');
+            desc_title.className = "config_titles";
+            var desc_title_data = `
+                MOBILE SCALING
+            `
+            desc_title.innerHTML = desc_title_data;
+            display.append(desc_title);
+
+            var desc_content = document.createElement('p');
+            desc_content.className = "config_feature_desc";
+            var desc_content_data = `
+                ${DESCRIPTION_mobile_scaling}
+            `
+            desc_content.innerHTML = desc_content_data;
+            display.append(desc_content);
+
+            var btn = document.createElement('div');
+            btn.className = "config_center_desc_btn";
+            var btn_content = `
+                <button class="standard_btn"> INCLUDED
+                </button>
+            `
+            btn.innerHTML = btn_content;
+            display.append(btn);
+        }
+
+        function desc_pages() {
+            add_desc();
+
+            while (display.firstChild) {
+                display.removeChild(display.firstChild);
+            }
+
+            var desc_img = document.createElement('div');
+            var desc_img_content = `
+                <label onclick="remove_desc()" id="burger_btn" for="toggle"> &#x2715; </label>         
+                <div class="hold_all_display">
+                    <img class="img_display" src="{{ url_for('static', filename='images/desktop_screenshot.png') }}">
+                </div>
+                <br>
+            `
+            desc_img.innerHTML = desc_img_content;
+            display.append(desc_img);
+
+            var desc_title = document.createElement('h1');
+            desc_title.className = "config_titles";
+            var desc_title_data = `
+                STANDARD PAGES
+            `
+            desc_title.innerHTML = desc_title_data;
+            display.append(desc_title);
+
+            var desc_content = document.createElement('p');
+            desc_content.className = "config_feature_desc";
+            var desc_content_data = `
+                ${DESCRIPTION_standard_pages}
+            `
+            desc_content.innerHTML = desc_content_data;
+            display.append(desc_content);
+
+            var btn = document.createElement('div');
+            btn.className = "config_center_desc_btn";
+            var btn_content = `
+                <button class="standard_btn"> INCLUDED
+                </button>
+            `
+            btn.innerHTML = btn_content;
+            display.append(btn);
+        }
+
+
+        /* ADITIONAL FEATURES */
+
+        function desc_desktop_animations() {
+            add_desc();
+
+            while (display.firstChild) {
+                display.removeChild(display.firstChild);
+            }
+
+            var desc_img = document.createElement('div');
+            var desc_img_content = `
+                <label onclick="remove_desc()" id="burger_btn" for="toggle"> &#x2715; </label>         
+                <div class="hold_all_display">
+                    <img class="img_display" src="{{ url_for('static', filename='images/desktop_screenshot.png') }}">
+                </div>
+                <br>
+            `
+            desc_img.innerHTML = desc_img_content;
+            display.append(desc_img);
+
+            var desc_title = document.createElement('h1');
+            desc_title.className = "config_titles";
+            var desc_title_data = `
+                EXTRA PAGE
+                <br>
+                <span class="desc_price">
+                    &#x271A; $100 TTD
+                </span>
+            `
+            desc_title.innerHTML = desc_title_data;
+            display.append(desc_title);
+
+
+
+            if (recent_add_extra_page == true) {
+                var desc_img = document.createElement('div');
+                desc_img.className = "warning_message_holder";
+                var desc_img_content = `
+                    <div class="warning_message_good">
+                        &#x2714; SUCCESS: ADDITIONAL PAGE ADDED
+                    </div>
+                `
+                desc_img.innerHTML = desc_img_content;
+                display.append(desc_img);
+            }
+
+            if (recent_remove_extra_page == true) {
+                var desc_img = document.createElement('div');
+                desc_img.className = "warning_message_holder";
+                var desc_img_content = `
+                    <div class="warning_message">
+                        &#x26A0; ADDITIONAL PAGE REMOVED
+                    </div>
+                `
+                desc_img.innerHTML = desc_img_content;
+                display.append(desc_img);
+            }
+
+
+
+            var desc_content = document.createElement('p');
+            desc_content.className = "config_feature_desc";
+            var desc_content_data = `
+                ${DESCRIPTION_extra_pages}
+            `
+            desc_content.innerHTML = desc_content_data;
+            display.append(desc_content);
+
+            var btn = document.createElement('div');
+            btn.className = "config_center_desc_btn";
+            var btn_content = `
+                <button onclick="add_desktop_animations()" class="add_another_product"> &#x271A; ADD EXTRA PAGE
+                </button>
+            `
+            btn.innerHTML = btn_content;
+            display.append(btn);
+        }
+
+        function remove_display_desktop_animations(num) {
+            add_desc();
+
+            while (display.firstChild) {
+                display.removeChild(display.firstChild);
+            }
+
+            var desc_img = document.createElement('div');
+            var desc_img_content = `
+                <label onclick="remove_desc()" id="burger_btn" for="toggle"> &#x2715; </label>         
+                <div class="hold_all_display">
+                    <img class="img_display" src="{{ url_for('static', filename='images/desktop_screenshot.png') }}">
+                </div>
+                <br>
+            `
+            desc_img.innerHTML = desc_img_content;
+            display.append(desc_img);
+
+            var desc_title = document.createElement('h1');
+            desc_title.className = "config_titles";
+            var desc_title_data = `
+                EXTRA PAGE
+                <br>
+                <span class="desc_price_minus">
+                    - $100 TTD
+                </span>
+            `
+            desc_title.innerHTML = desc_title_data;
+            display.append(desc_title);
+
+            var desc_content = document.createElement('p');
+            desc_content.className = "config_feature_desc";
+            var desc_content_data = `
+                ${DESCRIPTION_extra_pages}
+            `
+            desc_content.innerHTML = desc_content_data;
+            display.append(desc_content);
+
+            var btn = document.createElement('div');
+            btn.className = "config_center_desc_btn";
+            var btn_content = `
+                <button onclick="remove_desktop_animations(${num})" class="remove_btn"> &#x2715; REMOVE EXTRA PAGE
+                </button>
+            `
+            btn.innerHTML = btn_content;
+            display.append(btn);
+        }
+
+        function add_desktop_animations() {
+            remove_desc();
+
+            recent_add_extra_page = true;
+            desc_desktop_animations();
+            recent_add_extra_page = false;
+
+            var num = start_num;
+            start_num++;
+
+            var btn = document.createElement('div');
+            btn.id = "your_website_remove_desktop_animations_" + num;
+            var div_data = `
+                <br>
+                <button onclick="remove_display_desktop_animations(${num})" class="add_another_product"> EXTRA PAGE </button>
+            `
+            btn.innerHTML = div_data;
+            your_website.append(btn);
+
+            update_price_add(100);
+        }
+
+        function remove_desktop_animations(num) {
+            remove_desc();
+
+            var remove_from_your_website = document.getElementById("your_website_remove_desktop_animations_" + num);
+            while (remove_from_your_website.firstChild) {
+                remove_from_your_website.removeChild(remove_from_your_website.firstChild);
+            }
+            remove_from_your_website.remove();
+
+            recent_remove_extra_page = true;
+            desc_desktop_animations();
+            recent_remove_extra_page = false;
+
+            update_price_sub(100);
+        }
+
+        function desc_mobile_animations() {
+            add_desc();
+
+            while (display.firstChild) {
+                display.removeChild(display.firstChild);
+            }
+
+            var desc_img = document.createElement('div');
+            var desc_img_content = `
+                <label onclick="remove_desc()" id="burger_btn" for="toggle"> &#x2715; </label>         
+                <div class="hold_all_display">
+                    <img class="img_display" src="{{ url_for('static', filename='images/desktop_screenshot.png') }}">
+                </div>
+                <br>
+            `
+            desc_img.innerHTML = desc_img_content;
+            display.append(desc_img);
+
+            var desc_title = document.createElement('h1');
+            desc_title.className = "config_titles";
+            var desc_title_data = `
+                ANIMATIONS
+                <br>
+                <span class="desc_price">
+                    &#x271A; $300 TTD
+                </span>
+            `
+            desc_title.innerHTML = desc_title_data;
+            display.append(desc_title);
+
+            if (recent_remove_animations == true) {
+                var desc_img = document.createElement('div');
+                desc_img.className = "warning_message_holder";
+                var desc_img_content = `
+                    <div class="warning_message">
+                        &#x26A0; ANIMATIONS REMOVED
+                    </div>
+                `
+                desc_img.innerHTML = desc_img_content;
+                display.append(desc_img);
+            }
+
+            var desc_content = document.createElement('p');
+            desc_content.className = "config_feature_desc";
+            var desc_content_data = `
+                ${DESCRIPTION_animations}
+            `
+            desc_content.innerHTML = desc_content_data;
+            display.append(desc_content);
+
+            var btn = document.createElement('div');
+            btn.className = "config_center_desc_btn";
+            var btn_content = `
+                <button onclick="add_mobile_animations()" class="add_another_product"> &#x271A; ADD ANIMATIONS
+                </button>
+            `
+            btn.innerHTML = btn_content;
+            display.append(btn);
+        }
+
+        function remove_display_mobile_animations() {
+            add_desc();
+
+            while (display.firstChild) {
+                display.removeChild(display.firstChild);
+            }
+
+            var desc_img = document.createElement('div');
+            var desc_img_content = `
+                <label onclick="remove_desc()" id="burger_btn" for="toggle"> &#x2715; </label>         
+                <div class="hold_all_display">
+                    <img class="img_display" src="{{ url_for('static', filename='images/desktop_screenshot.png') }}">
+                </div>
+                <br>
+            `
+            desc_img.innerHTML = desc_img_content;
+            display.append(desc_img);
+
+            var desc_title = document.createElement('h1');
+            desc_title.className = "config_titles";
+            var desc_title_data = `
+                ANIMATIONS
+                <br>
+                <span class="desc_price_minus">
+                    - $300 TTD
+                </span>
+            `
+            desc_title.innerHTML = desc_title_data;
+            display.append(desc_title);
+
+            if (recent_add_animations == true) {
+                var desc_img = document.createElement('div');
+                desc_img.className = "warning_message_holder";
+                var desc_img_content = `
+                    <div class="warning_message_good">
+                        &#x2714; SUCCESS: ANIMATIONS ADDED
+                    </div>
+                `
+                desc_img.innerHTML = desc_img_content;
+                display.append(desc_img);
+            }
+
+            var desc_content = document.createElement('p');
+            desc_content.className = "config_feature_desc";
+            var desc_content_data = `
+                ${DESCRIPTION_animations}
+            `
+            desc_content.innerHTML = desc_content_data;
+            display.append(desc_content);
+
+            var btn = document.createElement('div');
+            btn.className = "config_center_desc_btn";
+            var btn_content = `
+                <button onclick="remove_mobile_animations()" class="remove_btn"> &#x2715; REMOVE ANIMATIONS
+                </button>
+            `
+            btn.innerHTML = btn_content;
+            display.append(btn);
+        }
+
+        function add_mobile_animations() {
+            remove_desc();
+
+            recent_add_animations = true;
+            remove_display_mobile_animations();
+            recent_add_animations = false;
+            var remove_btn = document.getElementById('mobile_animations_btn');
+            while (remove_btn.firstChild) {
+                remove_btn.removeChild(remove_btn.firstChild);
+            }
+
+            var btn = document.createElement('div');
+            btn.id = "your_website_remove_mobile_animations";
+            var div_data = `
+                <br>
+                <button onclick="remove_display_mobile_animations()" class="add_another_product"> ANIMATIONS </button>
+            `
+            btn.innerHTML = div_data;
+            your_website.append(btn);
+
+            update_price_add(300);
+        }
+
+        function remove_mobile_animations() {
+            remove_desc();
+
+            var remove_from_your_website = document.getElementById("your_website_remove_mobile_animations");
+            while (remove_from_your_website.firstChild) {
+                remove_from_your_website.removeChild(remove_from_your_website.firstChild);
+            }
+            remove_from_your_website.remove();
+
+            var target = document.getElementById('mobile_animations_btn');
+            var btn = document.createElement('div');
+            btn.id = "your_website_remove_mobile_animations";
+            var div_data = `
+                <button onclick="desc_mobile_animations()" class="add_another_product"> &#x271A; ANIMATIONS </button>
+            `
+            btn.innerHTML = div_data;
+            target.append(btn);
+
+            recent_remove_animations = true;
+            desc_mobile_animations();
+            recent_remove_animations = false;
+            update_price_sub(300);
+        }
+
+        function desc_backend() {
+            add_desc();
+
+            while (display.firstChild) {
+                display.removeChild(display.firstChild);
+            }
+
+            var desc_img = document.createElement('div');
+            var desc_img_content = `
+                <label onclick="remove_desc()" id="burger_btn" for="toggle"> &#x2715; </label>         
+                <div class="hold_all_display">
+                    <img class="img_display" src="{{ url_for('static', filename='images/websites_pic_1.jpg') }} ">
+                </div>
+                <br>
+            `
+            desc_img.innerHTML = desc_img_content;
+            display.append(desc_img);
+
+            var desc_title = document.createElement('h1');
+            desc_title.className = "config_titles";
+            var desc_title_data = `
+                BACKEND
+                <br>
+                <span class="desc_price">
+                    &#x271A; $500 TTD
+                </span>
+            `
+            desc_title.innerHTML = desc_title_data;
+            display.append(desc_title);
+
+            if (recent_remove_backend == true) {
+                var desc_img = document.createElement('div');
+                desc_img.className = "warning_message_holder";
+                var desc_img_content = `
+                    <div class="warning_message">
+                        &#x26A0; BACKEND REMOVED
+                    </div>
+                `
+                desc_img.innerHTML = desc_img_content;
+                display.append(desc_img);
+            }
+
+            if (recent_remove_backend_and_name == true) {
+                var desc_img = document.createElement('div');
+                desc_img.className = "warning_message_holder";
+                var desc_img_content = `
+                    <div class="warning_message">
+                        &#x26A0; BACKEND & CUSTOM WEBSITE NAME REMOVED
+                    </div>
+                `
+                desc_img.innerHTML = desc_img_content;
+                display.append(desc_img);
+            }
+
+            var desc_content = document.createElement('p');
+            desc_content.className = "config_feature_desc";
+            var desc_content_data = `
+                ${DESCRIPTION_backend}
+            `
+            desc_content.innerHTML = desc_content_data;
+            display.append(desc_content);
+
+            var btn = document.createElement('div');
+            btn.className = "config_center_desc_btn";
+            var btn_content = `
+                <button onclick="add_backend()" class="add_another_product"> &#x271A; ADD BACKEND
+                </button>
+            `
+            btn.innerHTML = btn_content;
+            display.append(btn);
+        }
+
+        function remove_display_backend() {
+            add_desc();
+
+            while (display.firstChild) {
+                display.removeChild(display.firstChild);
+            }
+
+            var desc_img = document.createElement('div');
+            var desc_img_content = `
+                <label onclick="remove_desc()" id="burger_btn" for="toggle"> &#x2715; </label>         
+                <div class="hold_all_display">
+                    <img class="img_display" src="{{ url_for('static', filename='images/websites_pic_1.jpg') }} ">
+                </div>
+                <br>
+            `
+            desc_img.innerHTML = desc_img_content;
+            display.append(desc_img);
+
+            var desc_title = document.createElement('h1');
+            desc_title.className = "config_titles";
+            var desc_title_data = `
+                BACKEND
+                <br>
+                <span class="desc_price_minus">
+                    - $500 TTD
+                </span>
+            `
+            desc_title.innerHTML = desc_title_data;
+            display.append(desc_title);
+
+            if (recent_add_backend == true) {
+                var desc_img = document.createElement('div');
+                desc_img.className = "warning_message_holder";
+                var desc_img_content = `
+                    <div class="warning_message_good">
+                        &#x2714; SUCCESS: BACKEND ADDED
+                    </div>
+                `
+                desc_img.innerHTML = desc_img_content;
+                display.append(desc_img);
+            }
+
+            var desc_content = document.createElement('p');
+            desc_content.className = "config_feature_desc";
+            var desc_content_data = `
+                ${DESCRIPTION_backend}
+            `
+            desc_content.innerHTML = desc_content_data;
+            display.append(desc_content);
+
+            var btn = document.createElement('div');
+            btn.className = "config_center_desc_btn";
+            var btn_content = `
+                <button onclick="remove_backend()" class="remove_btn"> &#x2715; REMOVE BACKEND
+                </button>
+            `
+            btn.innerHTML = btn_content;
+            display.append(btn);
+        }
+
+        function add_backend() {
+            remove_desc();
+
+            backend_is_there = true;
+            recent_add_backend = true;
+            remove_display_backend();
+            recent_add_backend = false;
+            var remove_btn = document.getElementById('backend_btn');
+            while (remove_btn.firstChild) {
+                remove_btn.removeChild(remove_btn.firstChild);
+            }
+
+            var btn = document.createElement('div');
+            btn.id = "your_website_remove_backend";
+
+            var div_data = `
+                <br>
+                <button onclick="remove_display_backend()" class="add_another_product"> BACKEND </button>
+            `
+            btn.innerHTML = div_data;
+            your_website.append(btn);
+
+            update_price_add(500);
+        }
+
+        function remove_backend() {
+            remove_desc();
+
+            if (custom_is_there == true) {
+                remove_domain_name();
+
+                recent_remove_backend_and_name = true;
+                desc_backend();
+                recent_remove_backend_and_name = false;
+            } else {
+                recent_remove_backend = true;
+                desc_backend();
+                recent_remove_backend = false;
+            }
+            backend_is_there = false;
+            var remove_from_your_website = document.getElementById("your_website_remove_backend");
+            while (remove_from_your_website.firstChild) {
+                remove_from_your_website.removeChild(remove_from_your_website.firstChild);
+            }
+            remove_from_your_website.remove();
+
+            var target = document.getElementById('backend_btn');
+            var btn = document.createElement('div');
+            btn.id = "your_website_remove_backend";
+            var div_data = `
+                <button onclick="desc_backend()" class="add_another_product"> &#x271A; BACKEND </button>
+            `
+            btn.innerHTML = div_data;
+            target.append(btn);
+
+            update_price_sub(500);
+        }
+
+        function desc_domain_name() {
+            add_desc();
+
+            var test_element = document.getElementById('your_website_remove_backend');
+
+            if (backend_is_there == false) {
+                while (display.firstChild) {
+                    display.removeChild(display.firstChild);
+                }
+
+                var desc_img = document.createElement('div');
+                var desc_img_content = `
+                <label onclick="remove_desc()" id="burger_btn" for="toggle"> &#x2715; </label>         
+                <div class="hold_all_display">
+                    <img class="img_display" src="{{ url_for('static', filename='images/desktop_screenshot.png') }} ">
+                </div>
+                <br>
+                `
+                desc_img.innerHTML = desc_img_content;
+                display.append(desc_img);
+
+                var desc_title = document.createElement('h1');
+                desc_title.className = "config_titles";
+                var desc_title_data = `
+                CUSTOM WEBSITE NAME
+                <br>
+                <span class="desc_price">
+                    &#x271A; $200 TTD (MONTHLY)
+                </span>
+                `
+                desc_title.innerHTML = desc_title_data;
+                display.append(desc_title);
+
+                var desc_img = document.createElement('div');
+                desc_img.className = "warning_message_holder";
+                var desc_img_content = `
+                    <div class="warning_message">
+                        &#x26A0; WARNING: MUST ADD BACKEND FIRST BEFORE WEBSITE NAME CAN BE CUSTOMISED
+                    </div>
+                `
+                desc_img.innerHTML = desc_img_content;
+                display.append(desc_img);
+
+                var desc_content = document.createElement('p');
+                desc_content.className = "config_feature_desc";
+                var desc_content_data = `
+                ${DESCRIPTION_domain_name}
+                `
+                desc_content.innerHTML = desc_content_data;
+                display.append(desc_content);
+
+                var btn = document.createElement('div');
+                btn.className = "config_center_desc_btn";
+                var btn_content = `
+                <button onclick="desc_backend()" class="remove_btn"> &#x26A0; WARNING: ADD BACKEND FIRST
+                </button>
+            `
+                btn.innerHTML = btn_content;
+                display.append(btn);
+            } else {
+                while (display.firstChild) {
+                    display.removeChild(display.firstChild);
+                }
+
+                var desc_img = document.createElement('div');
+                var desc_img_content = `
+                <label onclick="remove_desc()" id="burger_btn" for="toggle"> &#x2715; </label>         
+                <div class="hold_all_display">
+                    <img class="img_display" src="{{ url_for('static', filename='images/desktop_screenshot.png') }} ">
+                </div>
+                <br>
+                `
+                desc_img.innerHTML = desc_img_content;
+                display.append(desc_img);
+
+                var desc_title = document.createElement('h1');
+                desc_title.className = "config_titles";
+                var desc_title_data = `
+                CUSTOM WEBSITE NAME
+                <br>
+                <span class="desc_price">
+                    &#x271A; $200 TTD (MONTHLY)
+                </span>
+                `
+                desc_title.innerHTML = desc_title_data;
+                display.append(desc_title);
+
+                if (recent_remove_custom_name == true) {
+                    var desc_img = document.createElement('div');
+                    desc_img.className = "warning_message_holder";
+                    var desc_img_content = `
+                    <div class="warning_message">
+                        &#x26A0; CUSTOM WEBSITE NAME REMOVED
+                    </div>
+                `
+                    desc_img.innerHTML = desc_img_content;
+                    display.append(desc_img);
+                }
+
+
+                var desc_content = document.createElement('p');
+                desc_content.className = "config_feature_desc";
+                var desc_content_data = `
+                ${DESCRIPTION_domain_name}
+                `
+                desc_content.innerHTML = desc_content_data;
+                display.append(desc_content);
+
+                var btn = document.createElement('div');
+                btn.className = "config_center_desc_btn";
+                var btn_content = `
+                <button onclick="add_domain_name()" class="add_another_product"> &#x271A; ADD CUSTOM WEBSITE NAME
+                </button>
+            `
+                btn.innerHTML = btn_content;
+                display.append(btn);
+            }
+        }
+
+        function remove_display_domain_name() {
+            add_desc();
+
+            while (display.firstChild) {
+                display.removeChild(display.firstChild);
+            }
+
+            var desc_img = document.createElement('div');
+            var desc_img_content = `
+                <label onclick="remove_desc()" id="burger_btn" for="toggle"> &#x2715; </label>         
+                <div class="hold_all_display">
+                    <img class="img_display" src="{{ url_for('static', filename='images/desktop_screenshot.png') }} ">
+                </div>
+                <br>
+            `
+            desc_img.innerHTML = desc_img_content;
+            display.append(desc_img);
+
+            var desc_title = document.createElement('h1');
+            desc_title.className = "config_titles";
+            var desc_title_data = `
+                CUSTOM WEBSITE NAME
+                <br>
+                <span class="desc_price_minus">
+                    - $200 TTD (MONTHLY)
+                </span>
+            `
+            desc_title.innerHTML = desc_title_data;
+            display.append(desc_title);
+
+            if (recent_add_custom_name == true) {
+                var desc_img = document.createElement('div');
+                desc_img.className = "warning_message_holder";
+                var desc_img_content = `
+                    <div class="warning_message_good">
+                        &#x2714; SUCCESS: CUSTOM WEBSITE NAME ADDED
+                    </div>
+                `
+                desc_img.innerHTML = desc_img_content;
+                display.append(desc_img);
+            }
+
+            var desc_content = document.createElement('p');
+            desc_content.className = "config_feature_desc";
+            var desc_content_data = `
+                ${DESCRIPTION_domain_name}
+            `
+            desc_content.innerHTML = desc_content_data;
+            display.append(desc_content);
+
+            var btn = document.createElement('div');
+            btn.className = "config_center_desc_btn";
+            var btn_content = `
+                <button onclick="remove_domain_name()" class="remove_btn"> &#x2715; REMOVE CUSTOM WEBSITE NAME
+                </button>
+            `
+            btn.innerHTML = btn_content;
+            display.append(btn);
+        }
+
+        function add_domain_name() {
+            remove_desc();
+
+            custom_is_there = true;
+            recent_add_custom_name = true;
+            remove_display_domain_name();
+            recent_add_custom_name = false;
+
+            var remove_btn = document.getElementById('custom_domain_btn');
+            while (remove_btn.firstChild) {
+                remove_btn.removeChild(remove_btn.firstChild);
+            }
+
+            var btn = document.createElement('div');
+            btn.id = "your_website_remove_domain_name";
+
+            var div_data = `
+                <br>
+                <button onclick="remove_display_domain_name()" class="add_another_product"> CUSTOM WEBSITE NAME </button>
+            `
+            btn.innerHTML = div_data;
+            your_website.append(btn);
+
+            var add_monthly_div = document.getElementsByClassName('final_price_holder')[1];
+            var div = document.createElement('div');
+            div.id = "monthly";
+            var div_content = `
+                <span id="plus">+</span>
+                <br>
+                <span id="monthly_price"> MONTHLY </span>
+                <br>
+                (STARTING AFTER INITIAL PURCHASE MONTH)
+                <br>
+                <span class="price">
+                    $
+                    <span id="number"> 200 </span>
+                </span>
+                TTD 
+            `
+            div.innerHTML = div_content;
+            add_monthly_div.append(div);
+
+            update_price_add(200);
+        }
+
+        function remove_domain_name() {
+            remove_desc();
+
+            custom_is_there = false;
+            var remove_from_your_website = document.getElementById("your_website_remove_domain_name");
+            while (remove_from_your_website.firstChild) {
+                remove_from_your_website.removeChild(remove_from_your_website.firstChild);
+            }
+            remove_from_your_website.remove();
+
+            var target = document.getElementById('custom_domain_btn');
+            var btn = document.createElement('div');
+            btn.id = "your_website_remove_domain_name";
+            var div_data = `
+                <button onclick="desc_domain_name()" class="add_another_product"> &#x271A; CUSTOM WEBSITE NAME </button>
+            `
+            btn.innerHTML = div_data;
+            target.append(btn);
+
+            recent_remove_custom_name = true;
+            desc_domain_name();
+            recent_remove_custom_name = true;
+
+            update_price_sub(200);
+
+            var remove_monthly_div = document.getElementById('monthly');
+            while (remove_monthly_div.firstChild) {
+                remove_monthly_div.removeChild(remove_monthly_div.firstChild);
+            }
+            remove_monthly_div.remove();
+        }
+    </script>
+
+</body>
+
+</html>

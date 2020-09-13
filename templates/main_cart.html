@@ -1,0 +1,478 @@
+{% extends "default_2.html" %}
+{% block title %} | Cart {% endblock %}
+
+{% block head_tags %} 
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <style>
+        .swiper-container {
+            width: 100%;
+            padding-top: 50px;
+            padding-bottom: 50px;
+        }
+
+        .swiper-slide {
+            background-position: center;
+            border: 3px solid white;
+            background-color: darkgrey;
+            background-size: cover;
+            width: 310px;
+            border-radius: 25px;
+            text-align: center;
+            color: black;
+        }
+
+        #SNAP {
+            border: 3px solid yellow;
+            background-color: grey;
+            color: white;
+        }
+
+        #IG {
+            border: 3px solid #DD2A7B;
+            background-color: grey;
+            color: white;
+        }
+
+        #FB {
+            border: 3px solid #405DE6;
+            background-color: grey;
+            color: white;
+        }
+
+
+        #SNAP_BTN {
+            border: 3px solid yellow;
+            background-color: grey;
+            color: white;
+        }
+
+        #IG_BTN {
+            border: 3px solid #DD2A7B;
+            background-color: grey;
+            color: white;
+        }
+
+        #FB_BTN {
+            border: 3px solid #405DE6;
+            background-color: grey;
+            color: white;
+        }
+
+
+        #SNAP_BTN:hover {
+            background-color: yellow;
+            color: black;
+        }
+
+        #IG_BTN:hover {
+            background-color: #DD2A7B;
+            color: black;
+        }
+
+        #FB_BTN:hover {
+            background-color: #405DE6;
+            color: black;
+        }
+
+        #SNAP_card_price {
+            border: 3px solid yellow;
+            background-color: transparent;
+            color: white;
+        }
+
+        #IG_card_price {
+            border: 3px solid #DD2A7B;
+            background-color: transparent;
+            color: white;
+        }
+
+        #FB_card_price {
+            border: 3px solid #405DE6;
+            background-color: transparent;
+            color: white;
+        }
+
+				.cart_controls{
+					min-width: 220px;
+				}
+
+
+.whole_item:hover .cart_controls{
+    cursor: pointer;
+    transform: scale(0.92);
+    background-color: #fff4;
+    border: 3px solid pink;
+}
+
+.whole_item:hover .cart_item{
+    cursor: pointer;
+    transform: scale(0.92);
+    background-color: #fff4;
+    border: 3px solid pink;
+}
+				
+    </style>
+{% endblock %}
+
+{% block divheader %}
+<div id="main_cart">
+{% endblock %}
+
+{{ super() }}
+
+{% block content %}
+{% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <br>
+        <div id="ALERT" class="alert_good">
+            {% for message in messages %}
+            <span class="closebtn" onclick="this.parentElement.style.display='none';"> &times; </span>
+            {{ message }}
+						<button id="alert_btn_good" onclick="window.location='/profile/wishlist'"> View Wishlist </button>
+            {% endfor %}
+        </div>
+        <br>
+        {% endif %}
+        {% endwith %}
+
+<div id="productpage_holder">
+           
+           {% if session['ShoppingCart']|length == 0 %}
+            <h1 class="cart_title"> YOUR CART IS EMPTY </h1>
+            <h1 class="cart_title_mini"> DON'T PANNIC HERE ARE A FEW ITEMS YOU MAY LIKE ! </h1>
+						
+						<div class="recomendeds_holder">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+
+								{% for prod in recomend_products if prod.in_stock %}
+
+								{% if prod.sub_catagory == "INSTA" %}
+								<div id="IG" class="swiper-slide">
+								{% endif %}
+
+								{% if prod.sub_catagory == "SNAP" %}
+								<div id="SNAP" class="swiper-slide">
+								{% endif %}
+
+								{% if prod.sub_catagory == "FB" %}
+								<div id="FB" class="swiper-slide">
+								{% endif %}
+
+								{% if prod.sub_catagory == None %}
+								<div class="swiper-slide">
+								{% endif %}
+
+                    <img src="images/{{prod.img_url}}" class="card_img">
+                    <div class="card_contents">
+                        <h1 class="card_title">
+                            {{prod.name}}
+                        </h1>
+												
+													{% if prod.sub_catagory == "INSTA" %}
+													<span id="IG_card_price" class="card_price">
+													{% endif %}
+
+													{% if prod.sub_catagory == "SNAP" %}
+													<span id="SNAP_card_price" class="card_price">
+													{% endif %}
+
+													{% if prod.sub_catagory == "FB" %}
+													<span id="FB_card_price" class="card_price">
+													{% endif %}
+
+													{% if prod.sub_catagory == None %}
+													<span class="card_price">
+													{% endif %}
+
+													${{prod.price}} TTD 
+
+												</span>
+
+												{% if prod.monthly == True %}
+												<br><br>
+                        <span class="monthly">
+                            + $200 TTD (Monthly)
+                        </span>
+												{% endif %}
+
+                        <p class="card_desc">
+                            {{prod.desc}}
+                        </p>
+                        <div class="card_line_holder">
+                            <div class="card_line"></div>
+                        </div>
+                        <div class="points">
+                            <ul class="card_points">
+																{% if prod.feature_1 != None %}
+                                <li>
+                                    &#x2611; {{prod.feature_1}}
+                                </li>
+																{% endif %}
+																{% if prod.feature_2 != None %}
+                                <li>
+                                    &#x2611; {{prod.feature_2}}
+                                </li>
+																{% endif %}
+																{% if prod.feature_3 != None %}
+                                <li>
+                                    &#x2611; {{prod.feature_3}}
+                                </li>
+																{% endif %}
+																{% if prod.feature_4 != None %}
+                                <li>
+                                    &#x2611; {{prod.feature_4}}
+                                </li>
+																{% endif %}
+																{% if prod.feature_5 != None %}
+																<li>
+                                    &#x2611; {{prod.feature_5}}
+                                </li>
+																{% endif %}
+																{% if prod.feature_6 != None %}
+																<li>
+                                    &#x2611; {{prod.feature_6}}
+                                </li>
+																{% endif %}
+																{% if prod.feature_7 != None %}
+																<li>
+                                    &#x2611; {{prod.feature_7}}
+                                </li>
+																{% endif %}
+                            </ul>
+                        </div>
+                        <div class="btn_holder">
+														{% if prod.sub_catagory == "INSTA" %}
+															<button onclick="window.open('/shop/{{prod.id}}', '_self')" id="IG_BTN" class="card_btn">
+														{% endif %}
+
+														{% if prod.sub_catagory == "SNAP" %}
+															<button onclick="window.open('/shop/{{prod.id}}', '_self')" id="SNAP_BTN" class="card_btn">
+														{% endif %}
+
+														{% if prod.sub_catagory == "FB" %}
+															<button onclick="window.open('/shop/{{prod.id}}', '_self')" id="FB_BTN" class="card_btn">
+														{% endif %}
+
+														{% if prod.sub_catagory == None %}
+															<button onclick="window.open('/shop/{{prod.id}}', '_self')" class="card_btn">
+														{% endif %}
+
+                            {% if prod.in_stock == True %}
+                                VIEW DETAILS
+														{% endif %}
+														{% if prod.in_stock == False %}
+                               CURRENTLY UNAVAILABLE
+														{% endif %}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+								{% endfor %}
+
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+                </div>
+					
+						{% endif %}
+
+						
+						{% if session['ShoppingCart']|length > 0 %}
+            <h1 class="cart_title"> YOUR CART </h1>
+            <br>
+
+						{% for key, item in session['ShoppingCart'].items() %}
+						<div class="whole_item">
+            <div class="cart_item">
+                <div class="cart_item_contents">
+                    <h1 class="cart_item_title"> {{item["catagory"]}} - {{item["name"]}} (x{{item["AMT_IN_CART"]}}) </h1>
+                    <div class="cart_holder_flex">
+                        <div class="cart_left">
+                            <img class="cart_img" src="images/{{item["img_url"]}}">
+                        </div>
+                        <div class="cart_right">
+                            <div class="cart_price_holder">
+                                <span class="cart_price"> ${{item["price_total"]}} TTD </span>
+                            </div>
+                            <h1 class="cart_desc_title"> DESCRIPTION </h1>
+                            <p class="cart_desc">
+                                {{item["desc"]}}
+                            </p>
+
+                            <div class="cart_bottom_cals">
+                                *Unit Cost: ${{item["price_per"]}}TTD x Quantity: {{item["AMT_IN_CART"]}}
+																
+																{% if item["monthly_price"] != 0 %}
+																	<br><br>
+																	This purchase includes a monthly fee of ${{item["monthly_price"]}} TTD for the maintaince of your domain name.
+																{% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+						<div class="cart_controls">
+                    <div class="actual_controls">
+                        <div class="ctrl_btn_holder cart_item_contents">
+                            <div onclick="window.open('/remove_from_cart/{{item["id"]}}', '_self')" class="ctrl_btn">
+                                <img class="ctrl_icon" src="icons/del.png">
+                                <span class="ctrl_text"> REMOVE </span>
+                            </div>
+                            <br>
+
+                            <div onclick="window.open('/shop/{{item["id"]}}', '_self')" class="ctrl_btn">
+                                <img class="ctrl_icon" src="icons/view.png">
+                                <span class="ctrl_text"> VIEW </span>
+                            </div>
+                            <br>
+
+														{% if current_user.is_authenticated %}
+                            <div onclick="window.open('/wishlist/add/{{item["id"]}}', '_self')" class="ctrl_btn">
+                                <img class="ctrl_icon" src="icons/wishlist.png">
+                                <span class="ctrl_text"> SAVE </span>
+                            </div>
+														<br>
+														{% endif %}
+														
+                            <div onclick="hello({{item["id"]}})" class="ctrl_btn">
+                                <img class="ctrl_icon" src="icons/share.png">
+                                <span class="ctrl_text"> SHARE </span>
+                            </div>
+
+                        </div>
+
+
+												<input id="{{item["id"]}}" class="make_me_blank" value="https://compileprojects.kyleawah.repl.co/shop/{{item["id"]}}">
+
+                        <div id="stat_{{item["id"]}}" class="url_coppied">
+                            <strong> URL COPIED ! </strong>
+                        </div>
+
+                    </div>
+                </div>
+
+						</div>
+            <br>
+						{% endfor %}
+						          
+            <h1 class="cart_title"> TOTAL </h1>
+            <h1 class="cart_title"> 
+                <span id="price">
+                ${{absolute_total}} TTD
+                </span> 
+            </h1>
+
+						{% if monthly_total != 0 %}
+            	<h1 class="monthly_checkout"> 
+                + 
+                <br>
+                ${{monthly_total}}TTD (MONTHLY)
+            	</h1>
+						{% endif %}
+            <br>
+
+						{% if current_user.is_authenticated == False %}
+            <div class="check_out_holder">
+            	<button onclick="window.open('/login', '_self')"  class="check_out">
+                LOGIN TO COMPLETE ORDER
+              </button>
+							
+
+							<br><br>
+								<div class="cart_bottom_cals">
+									For further information about accounts and the ordering process here at Compile Projects please visit our ordering process page
+									<br><br><br>
+									<div style="color:white">
+									<span class="product" onclick="window.open('/order', '_self')">
+                      ORDERING
+                      <img src="icons/down.png" class="across">
+                  </span>
+									</div>
+                </div>
+            </div>
+						{% endif %}
+						{% if current_user.is_authenticated %}
+							{% if current_user.email_confirmed == True %}
+            	<div class="check_out_holder">
+          			<button onclick="window.open('/checkout/menu', '_self')" class="check_out">
+               	PROCEED TO CHECK OUT
+          			</button>
+        			</div>
+							{% endif %}
+
+							{% if current_user.email_confirmed == False %}
+            	<div class="check_out_holder">
+          			<button onclick="window.open('/confirm_email/send', '_self')" class="check_out">
+                CONFIRM EMAIL BEFORE PURCHASE
+          			</button>
+        			</div>
+							{% endif %}
+						{% endif %}
+
+            
+						<br><br>
+            {% endif %}
+    	</div>
+
+		{% if current_user.is_authenticated == False %}
+		<div class="ad">
+      ADS GO HERE
+    </div>
+		{% endif %}
+
+		{% if current_user.is_premium == False %}
+		<div class="ad">
+      ADS GO HERE
+    </div>
+		{% endif %}
+						
+{% endblock %}
+
+{% block footer %}
+<div class="footer footer_special">
+{% endblock %}
+
+
+{% block animations %}
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script>
+        var swiper = new Swiper('.swiper-container', {
+            effect: 'coverflow',
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: 'auto',
+            coverflowEffect: {
+                rotate: -0,
+                stretch: 0,
+                depth: 100,
+                modifier: 2,
+                slideShadows: true,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+            },
+        });
+</script>
+    
+<script>
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        async function hello(num) {
+            var el = document.getElementById(num);
+            el.select();
+            if (document.execCommand('copy')) {
+                var st = document.getElementById('stat_'+num);
+                st.style.display = "block";
+                await sleep(2000);
+                st.style.display = "none";
+            }
+        }
+</script>
+
+
+{% endblock %}

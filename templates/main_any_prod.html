@@ -1,0 +1,499 @@
+{% extends "default_2.html" %}
+{% block title %} | {{prod.catagory}} - {{prod.name}} {% endblock %}
+
+{% block head_tags %} 
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <style>
+        .swiper-container {
+            width: 100%;
+            padding-top: 50px;
+            padding-bottom: 50px;
+        }
+
+        .swiper-slide {
+            background-position: center;
+            border: 3px solid white;
+            background-color: darkgrey;
+            background-size: cover;
+            width: 310px;
+            border-radius: 25px;
+            text-align: center;
+            color: black;
+        }
+
+        #SNAP {
+            border: 3px solid yellow;
+            background-color: grey;
+            color: white;
+        }
+
+        #IG {
+            border: 3px solid #DD2A7B;
+            background-color: grey;
+            color: white;
+        }
+
+        #FB {
+            border: 3px solid #405DE6;
+            background-color: grey;
+            color: white;
+        }
+
+
+        #SNAP_BTN {
+            border: 3px solid yellow;
+            background-color: grey;
+            color: white;
+        }
+
+        #IG_BTN {
+            border: 3px solid #DD2A7B;
+            background-color: grey;
+            color: white;
+        }
+
+        #FB_BTN {
+            border: 3px solid #405DE6;
+            background-color: grey;
+            color: white;
+        }
+
+
+        #SNAP_BTN:hover {
+            background-color: yellow;
+            color: black;
+        }
+
+        #IG_BTN:hover {
+            background-color: #DD2A7B;
+            color: black;
+        }
+
+        #FB_BTN:hover {
+            background-color: #405DE6;
+            color: black;
+        }
+
+        #SNAP_card_price {
+            border: 3px solid yellow;
+            background-color: transparent;
+            color: white;
+        }
+        
+        #IG_card_price {
+            border: 3px solid #DD2A7B;
+            background-color: transparent;
+            color: white;
+        }
+        
+        #FB_card_price {
+            border: 3px solid #405DE6;
+            background-color: transparent;
+            color: white;
+        }
+
+
+.ctrls {
+    border: 3px solid white;
+    border-radius: 25px;
+    padding: 10px;
+    display: flex;
+}
+
+.prod_page_btn:hover {
+    background-color: #FFF5;
+    cursor: pointer;
+}
+
+.prod_page_url {
+    background-color: #FFF5;
+}
+
+#number_of_prod{
+	background-color: black;
+	border: 3px solid pink;
+	padding: 10px;
+	//font-size: 18px;
+}
+    </style>
+{% endblock %}
+
+{% block divheader %}
+<div id="main_products">
+{% endblock %}
+
+{{ super() }}
+
+{% block content %}
+</div>
+
+{% with messages = get_flashed_messages() %}
+  		{% if messages %}
+				<br>
+        	<div id="ALERT" class="alert_good">
+        		{% for message in messages %}
+          		<span class="closebtn" onclick="this.parentElement.style.display='none';"> &times; </span>
+        				{{ message }}
+							<button id="alert_btn_good" onclick="window.location='/profile/wishlist'"> View Wishlist </button>
+        		{% endfor %}
+        	</div>
+				<br>
+  		{% endif %}
+		{% endwith %}
+
+<br>
+    <div class="any_prod_middle">
+        <div class="any_prod_display">
+
+            <h1 class="any_prod_title"> {{prod.catagory}} - {{prod.name}} </h1>
+            <div class="any_prod_flex_holder">
+                <div class="any_prod_img_holder any_prod_flex">
+                    <img class="any_prod_img" src="{{ url_for('static', filename='images/'+prod.img_url) }}">
+                </div>
+                <div class="any_prod_flex">
+									  <br class="hide_mobile">
+                    <h1 class="any_prod_price"> 
+                        <span id="price"> ${{prod.price}} TTD </span>
+												{% if prod.monthly == True %}
+                        <br class="hide_mobile">
+                        <span class="monthly_all_prod"> + $200TTD (MONTHLY) </span>
+												{% endif %}
+                    </h1>
+                    <br>
+                    <h1 class="any_prod_desc_header"> DESCRIPTION </h1>
+                    <p class="any_prod_desc">
+                        {{prod.desc}}
+												<br><br>
+												<h1 class="any_prod_desc_header"> FEATURES </h1>
+												<ul class="card_points">
+																{% if prod.feature_1 != None %}
+                                <li>
+                                    {{prod.feature_1}}
+                                </li>
+																{% endif %}
+																{% if prod.feature_2 != None %}
+                                <li>
+                                    {{prod.feature_2}}
+                                </li>
+																{% endif %}
+																{% if prod.feature_3 != None %}
+                                <li>
+                                    {{prod.feature_3}}
+                                </li>
+																{% endif %}
+																{% if prod.feature_4 != None %}
+                                <li>
+                                    {{prod.feature_4}}
+                                </li>
+																{% endif %}
+																{% if prod.feature_5 != None %}
+																<li>
+                                    {{prod.feature_5}}
+                                </li>
+																{% endif %}
+																{% if prod.feature_6 != None %}
+																<li>
+                                    {{prod.feature_6}}
+                                </li>
+																{% endif %}
+																{% if prod.feature_7 != None %}
+																<li>
+                                    {{prod.feature_7}}
+                                </li>
+																{% endif %}
+                            </ul>
+                    </p>
+
+										<br>
+                    <div class="ctrls">
+												{% if current_user.is_authenticated %}
+                            <div onclick="window.open('/wishlist/add/{{prod.id}}', '_self')" class="prod_page_btn ctrl_btn">
+                                <img class="ctrl_icon" src="{{ url_for('static', filename='icons/wishlist.png') }}">
+                                <span class="ctrl_text"> SAVE </span>
+                            </div>
+														<br>
+												{% endif %}
+
+                        <div onclick="hello({{prod.id}})" class="prod_page_btn ctrl_btn">
+                            <img class="ctrl_icon" src="{{ url_for('static', filename='icons/share.png') }}">
+                            <span class="ctrl_text"> SHARE </span>
+                        </div>
+                    </div>
+
+                    <input id="{{prod.id}}" class="make_me_blank" value="https://compileprojects.kyleawah.repl.co/shop/{{prod.id}}">
+
+                    <div id="stat_{{prod.id}}" class="prod_page_url url_coppied">
+                        <strong> URL COPIED ! </strong>
+                    </div>
+
+                    <div class="any_prod_checkout_btn_holder">
+												{% if incart == False %}
+												<select id="number_of_prod" class="number_of_prod">
+                            <option value="1"> QTY: 1 </option>
+                            <option value="2"> QTY: 2 </option>
+                            <option value="3"> QTY: 3 </option>
+                            <option value="4"> QTY: 4 </option>
+                            <option value="5"> QTY: 5 </option>
+                            <option value="6"> QTY: 6 </option>
+                            <option value="7"> QTY: 7 </option>
+                            <option value="8"> QTY: 8 </option>
+                            <option value="9"> QTY: 9 </option>
+                            <option value="10"> QTY: 10 </option>
+                       </select>
+                       <br><br>
+                        <button onclick="add()" class="any_prod_checkout_btn"> ADD TO CART </button>
+												{% endif %}
+
+												{% if incart == True %}
+                        <button onclick="window.open('/remove_from_cart/{{prod.id}}', '_self')" class="any_prod_remove_from_cart_btn "> 
+													REMOVE
+													{{amt_in_cart}} ITEMS
+													FROM CART 
+												</button>
+												{% endif %}
+                    </div>
+
+
+                    <br><br>
+                    		{% if current_user.is_authenticated == False %}
+		<div class="ad">
+      ADS GO HERE
+    </div>
+		{% endif %}
+
+		{% if current_user.is_premium == False %}
+		<div class="ad">
+      ADS GO HERE
+    </div>
+		{% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <br><br>
+       		{% if current_user.is_authenticated == False %}
+		<div class="ad">
+      ADS GO HERE
+    </div>
+		{% endif %}
+
+		{% if current_user.is_premium == False %}
+		<div class="ad">
+      ADS GO HERE
+    </div>
+		{% endif %}
+
+
+
+
+        <div class="recomendeds_holder">
+            <h1 class="recomendeds_title"> YOU MAY ALSO LIKE THESE </h1>
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+
+								{% for prod in recomend_products %}
+
+								
+
+								{% if prod.sub_catagory == "INSTA" %}
+								<div id="IG" class="swiper-slide">
+								{% endif %}
+
+								{% if prod.sub_catagory == "SNAP" %}
+								<div id="SNAP" class="swiper-slide">
+								{% endif %}
+
+								{% if prod.sub_catagory == "FB" %}
+								<div id="FB" class="swiper-slide">
+								{% endif %}
+
+								{% if prod.sub_catagory == None %}
+								<div class="swiper-slide">
+								{% endif %}
+
+                    <img src="{{ url_for('static', filename='images/'+prod.img_url) }}" class="card_img">
+                    <div class="card_contents">
+                        <h1 class="card_title">
+                            {{prod.name}}
+                        </h1>
+												
+													{% if prod.sub_catagory == "INSTA" %}
+													<span id="IG_card_price" class="card_price">
+													{% endif %}
+
+													{% if prod.sub_catagory == "SNAP" %}
+													<span id="SNAP_card_price" class="card_price">
+													{% endif %}
+
+													{% if prod.sub_catagory == "FB" %}
+													<span id="FB_card_price" class="card_price">
+													{% endif %}
+
+													{% if prod.sub_catagory == None %}
+													<span class="card_price">
+													{% endif %}
+
+													${{prod.price}} TTD 
+
+
+												</span>
+
+												{% if prod.monthly == True %}
+												<br><br>
+                        <span class="monthly">
+                            + $200 TTD (Monthly)
+                        </span>
+												{% endif %}
+
+                        <p class="card_desc">
+                            {{prod.desc}}
+                        </p>
+                        <div class="card_line_holder">
+                            <div class="card_line"></div>
+                        </div>
+                        <div class="points">
+                            <ul class="card_points">
+																{% if prod.feature_1 != None %}
+                                <li>
+                                    &#x2611; {{prod.feature_1}}
+                                </li>
+																{% endif %}
+																{% if prod.feature_2 != None %}
+                                <li>
+                                    &#x2611; {{prod.feature_2}}
+                                </li>
+																{% endif %}
+																{% if prod.feature_3 != None %}
+                                <li>
+                                    &#x2611; {{prod.feature_3}}
+                                </li>
+																{% endif %}
+																{% if prod.feature_4 != None %}
+                                <li>
+                                    &#x2611; {{prod.feature_4}}
+                                </li>
+																{% endif %}
+																{% if prod.feature_5 != None %}
+																<li>
+                                    &#x2611; {{prod.feature_5}}
+                                </li>
+																{% endif %}
+																{% if prod.feature_6 != None %}
+																<li>
+                                    &#x2611; {{prod.feature_6}}
+                                </li>
+																{% endif %}
+																{% if prod.feature_7 != None %}
+																<li>
+                                    &#x2611; {{prod.feature_7}}
+                                </li>
+																{% endif %}
+                            </ul>
+                        </div>
+                        <div class="btn_holder">
+														{% if prod.sub_catagory == "INSTA" %}
+															<button onclick="window.open('/shop/{{prod.id}}', '_self')" id="IG_BTN" class="card_btn">
+														{% endif %}
+
+														{% if prod.sub_catagory == "SNAP" %}
+															<button onclick="window.open('/shop/{{prod.id}}', '_self')" id="SNAP_BTN" class="card_btn">
+														{% endif %}
+
+														{% if prod.sub_catagory == "FB" %}
+															<button onclick="window.open('/shop/{{prod.id}}', '_self')" id="FB_BTN" class="card_btn">
+														{% endif %}
+
+														{% if prod.sub_catagory == None %}
+															<button onclick="window.open('/shop/{{prod.id}}', '_self')" class="card_btn">
+														{% endif %}
+
+                            {% if prod.in_stock == True %}
+                                VIEW DETAILS
+														{% endif %}
+														{% if prod.in_stock == False %}
+                               CURRENTLY UNAVAILABLE
+														{% endif %}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+								{% endfor %}
+
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </div>
+
+    <br><br>
+    		{% if current_user.is_authenticated == False %}
+		<div class="ad">
+      ADS GO HERE
+    </div>
+		{% endif %}
+
+		{% if current_user.is_premium == False %}
+		<div class="ad">
+      ADS GO HERE
+    </div>
+		{% endif %}
+{% endblock %}
+
+{% block footer %}
+<div class="footer footer_special">
+{% endblock %}
+
+
+{% block animations %}
+<!-- <script src="main_websites.js"></script> -->
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script>
+        var swiper = new Swiper('.swiper-container', {
+            effect: 'coverflow',
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: 'auto',
+            coverflowEffect: {
+                rotate: -0,
+                stretch: 0,
+                depth: 100,
+                modifier: 2,
+                slideShadows: true,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+            },
+        });
+</script>
+
+<script>
+	function add(){
+		val = document.getElementById('number_of_prod').value
+		url = '/add_to_cart/{{prod.id}}/'+ val
+	  window.open(url, '_self');
+	}   
+</script>
+
+   
+<script>
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        async function hello(num) {
+            var el = document.getElementById(num);
+            el.select();
+            if (document.execCommand('copy')) {
+                var st = document.getElementById('stat_'+num);
+                st.style.display = "block";
+                await sleep(2000);
+                st.style.display = "none";
+            }
+        }
+</script>
+{% endblock %}

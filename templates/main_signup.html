@@ -1,0 +1,93 @@
+{% from "_formhelpers.html" import render_field %}
+
+{% extends "default.html" %}
+{% block title %} | Sign Up {% endblock %}
+
+{% block head_tags %} 
+
+{% endblock %}
+
+{% block divheader %}
+<div id="main_cart">
+{% endblock %}
+
+{{ super() }}
+
+{% block content %}
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <br>
+        <div id="ALERT" class="alert_bad">
+            {% for message in messages %}
+            <span class="closebtn" onclick="this.parentElement.style.display='none';"> &times; </span>
+            {{ message }}
+            {% endfor %}
+        </div>
+        <br>
+        {% endif %}
+        {% endwith %}
+
+        <div id="productpage_holder">
+          
+            <div class="login_middle">
+               
+               <div class="login_side">
+                   <h1 class="welcome"> WELCOME! </h1>
+                   <p class="welcome_para">
+                       We use accounts to allow for users to create orders, make payments as well as access additional features. Signing up for an account is free. To begin, please enter the following credentials to create your account with us, after your account has been created you will be redirected to the login page upon which you can utilize the email and password you have set to login to your new account with us. Please confirm your email after logging in as these credentials will be used to contact you with regards to future purchases made with Compile Projects
+                   </p>
+               </div>
+               
+                <div class="login_pannel">
+                    <div class="login_contents">
+                        <h1 class="login_header"> SIGN UP </h1>
+                        <form class="login_form" action="/signup" method="POST">
+                            {{ form.csrf_token }}
+
+                            {{ render_field(form.email) }}
+                            <br><br>
+														{{ render_field(form.phone) }}
+                            <br><br>
+                            {{ render_field(form.username) }}
+                            <br><br>
+                            {{ render_field(form.first_name) }}
+                            <br><br>
+                            {{ render_field(form.last_name) }}
+                            <br><br>
+                            {{ render_field(form.password) }}
+														<br><br>
+														<div style="text-align:center">
+                            {{ render_field(form.re) }}
+														</div>
+														<br>
+                            <div class="login_btn_holder">
+                                {{ form.submit }}
+                            </div>
+                        </form>
+                        <div class="cart_bottom_cals">
+                            Already have an existing account with us?
+                            <br><br>
+                            <div style="color:white">
+                                <span class="product" onclick="window.open('/login', '_self')">
+                                    LOG IN
+                                    <img src="icons/down.png" class="across">
+                                </span>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <br><br>
+{% endblock %}
+
+{% block footer %}
+<div class="footer footer_special">
+{% endblock %}
+
+
+{% block animations %}
+
+{% endblock %}

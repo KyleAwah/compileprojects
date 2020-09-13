@@ -1,0 +1,280 @@
+{% extends "default.html" %}
+{% block title %} | Premium Account {% endblock %}
+
+{% block head_tags %} 
+<style>
+	.wrapper{
+		display:flex;
+	}
+
+	.box{
+		flex: 1;
+		padding: 20px;
+		text-align:center;
+	}
+
+	.step_num{
+		font-size: 30px;
+		color: pink;
+	}
+
+	.step_label{
+		font-size: 25px;
+	}
+
+	.step_desc{
+		font-size: 18px;
+	}
+
+	.step_img_holder{
+		padding-left: 50px;
+		padding-right: 50px;
+	}
+	
+	.step_img{
+		max-width: 100%;
+	}
+
+	.grey{
+		color:grey;
+		font-size: 15px;
+	}
+
+	.congrats{
+		font-size: 60px;
+	}
+
+	.congrats_mini{
+		font-size: 20px;
+	}
+
+	#prem_main_logo{
+		height: 45px;
+	}
+
+	@media only screen and (max-width: 900px) {
+		.main_label{
+			font-size: 22px;
+		}
+		#prem_main_logo{
+			height: 22px;
+		}
+
+		.wrapper{
+			flex-direction: column;
+		}
+
+		.step_num{
+			font-size: 30px;
+		}
+
+		.step_img_holder{
+			padding-left: 0px;
+			padding-right: 0px;
+		}
+
+		.congrats{
+			font-size: 32px;
+			padding-top: 50px;
+		}
+
+		.congrats_mini{
+			font-size: 15px;
+		}
+
+		.box{
+			padding: 8px;
+			padding-top: 40px;
+		}
+	}
+</style>
+
+
+
+    <style>
+        .button-container-2 button {
+            background-color: pink;
+            font-size: 20px;
+            padding: 10px;
+            border: 2px solid pink;
+
+            -webkit-mask: url("https://raw.githubusercontent.com/robin-dela/css-mask-animation/master/img/urban-sprite.png");
+            mask: url("https://raw.githubusercontent.com/robin-dela/css-mask-animation/master/img/urban-sprite.png");
+            -webkit-mask-size: 3000% 100%;
+            mask-size: 3000% 100%;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            -webkit-animation: ani2 0.7s steps(29) forwards;
+            animation: ani2 0.7s steps(29) forwards;
+        }
+
+        .button-container-2 button:hover {
+            -webkit-animation: ani 0.7s steps(29) forwards;
+            animation: ani 0.7s steps(29) forwards;
+        }
+
+        .mas {
+            position: absolute;
+            color: pink;
+            text-align: center;
+            position: absolute;
+            overflow: hidden;
+            font-size: 20px;
+            padding: 9px;
+            border: 2px solid pink;
+        }
+
+        @keyframes ani {
+            from {
+                -webkit-mask-position: 0 0;
+                mask-position: 0 0;
+            }
+
+            to {
+                -webkit-mask-position: 100% 0;
+                mask-position: 100% 0;
+            }
+        }
+
+        @-webkit-keyframes ani2 {
+            from {
+                -webkit-mask-position: 100% 0;
+                mask-position: 100% 0;
+            }
+
+            to {
+                -webkit-mask-position: 0 0;
+                mask-position: 0 0;
+            }
+        }
+
+        @keyframes ani2 {
+            from {
+                -webkit-mask-position: 100% 0;
+                mask-position: 100% 0;
+            }
+
+            to {
+                -webkit-mask-position: 0 0;
+                mask-position: 0 0;
+            }
+        }
+
+				.content_box_1 {
+	  			height: 100vh;
+				}
+    </style>
+{% endblock %}
+
+{% block divheader %}
+<div id="main_products">
+{% endblock %}
+
+{{ super() }}
+
+{% block content %}
+        <div id="productpage_holder">
+            <div id="productpage_main_screen" class="top">
+                <div id="top_desc">
+										<h1 class="main_label"> 
+											PREMIUM ACCOUNT 
+											<img id="prem_main_logo" src="{{ url_for('static', filename='icons/premium.png') }}">
+										</h1>
+                    <p class="top_desc prod_page_main_desc">
+                        Ad Removal, Early BETA Access, Exclusive Content & Discounts can be Yours!
+												<br>
+												Premium accounts offer users special limited features over standard accounts for a one time purchase fee of <span id="price"> $500TTD </span>
+												<br><br>
+												<span class="grey">
+													* Additional content for Premium Accounts may be added through future updates and as such additional features may be added which are not currently listed.
+												</span>
+												<br>
+                        <br>
+												<br>
+                    </p>
+                    <div class="center_me">
+
+										{% if current_user.email_confirmed == False %}
+										<div class="button-container-2">
+                    		<span class="mas"> CONFIRM EMAIL TO PROCEED </span>
+                    		<button type="button" name="Hover" onclick="window.open('/profile', '_self')"> CONFIRM EMAIL TO PROCEED </button>
+                		</div>
+										{% endif %}
+
+										{% if current_user.email_confirmed %}
+										<span class="product"  onclick="window.open('/commingsoon', '_self')">
+                      COMMING SOON
+                      <img src="icons/down.png" class="across">
+                    </span>
+										<br><br><br>
+										{% endif %}
+                    </div>
+                    <br><br>
+                </div>
+
+            	<div class="wrapper">
+            		<div class="box">
+										<h1 class="step_num"> BETA ACCESS </h1>
+            			<div class="step_img_holder">
+										<img class="step_img" src="{{ url_for('static', filename='images/prem_1.png') }}">
+            			</div>
+									<p class="step_desc">
+										Gain exclusive early acess to new software we're currently developing. This includes free apps, games and much more!
+									</p>
+            		</div>
+								
+         				<div class="box">
+									<h1 class="step_num"> EXCLUSIVE CONTENT </h1>
+									<div class="step_img_holder">
+										<img class="step_img" src="{{ url_for('static', filename='images/comp_filled.png') }}">
+            			</div>
+									<p class="step_desc">
+										Access special features for premium accounts such as ad removal, premium bages throughout our website as well as products and much more!
+									</p>
+            		</div>
+								<div class="box">
+									<h1 class="step_num"> DISCOUNTS </h1>
+									<div class="step_img_holder">
+										<img class="step_img" src="{{ url_for('static', filename='images/prem_2.png') }}">
+            			</div>
+								  <p class="step_desc">
+										Premium users have access to a 10% Discount store wide on any product purchased!
+										<br><br>
+											<span class="grey">
+												* Some products may be offered free for premium users
+											</span>
+									</p>
+            		</div>
+            	</div>
+
+            </div>
+					</div>
+
+
+                
+          
+            <br><br><br>
+            		{% if current_user.is_authenticated == False %}
+		<div class="ad">
+      ADS GO HERE
+    </div>
+		{% endif %}
+
+		{% if current_user.is_premium == False %}
+		<div class="ad">
+      ADS GO HERE
+    </div>
+		{% endif %}
+
+        </div>
+{% endblock %}
+
+{% block footer %}
+<div class="footer footer_special">
+{% endblock %}
+
+
+{% block animations %}
+<!-- <script src="main_websites.js"></script> -->
+{% endblock %}
