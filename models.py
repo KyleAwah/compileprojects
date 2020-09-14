@@ -4,6 +4,13 @@ from werkzeug.security import generate_password_hash, check_password_hash
 db = SQLAlchemy()
 import datetime
 
+import click
+from flask.cli import with_appcontext
+
+@with_appcontext
+def create_tables():
+    db.create_all()
+
 class user(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
