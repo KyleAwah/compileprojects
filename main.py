@@ -67,7 +67,7 @@ def premium_required(func):
 # Server Init #
 def create_app():
   app = Flask(__name__, static_url_path='')
-  app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///CP_DATABASE.db'
+  app.config['SQLALCHEMY_DATABASE_URI'] = os.environ["DATABASE_URL"]
   app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
   app.config['SECRET_KEY'] = os.environ["APP_KEY"]
   app.config['RECAPTCHA_PUBLIC_KEY'] = os.environ["RE_SITE_KEY"]
