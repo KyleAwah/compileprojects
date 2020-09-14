@@ -24,6 +24,8 @@ from flask_admin.contrib.sqla import ModelView
 from flask_admin.contrib.fileadmin import FileAdmin
 from flask_mail import Mail, Message
 from itsdangerous import URLSafeTimedSerializer, SignatureExpired, BadTimeSignature
+import click
+from flask.cli import with_appcontext
 
 # Login Manager #
 login_manager = LoginManager()
@@ -93,6 +95,12 @@ images = UploadSet('images', IMAGES)
 configure_uploads(app, images)
 mail = Mail(app)
 app.jinja_env.add_extension('jinja2.ext.loopcontrols')
+
+# Postgres Database Setup #
+@click.command(name='create_tables')
+@with_appcontext
+def create_tables():
+    db.create_all()
 
 # Flask Admin Setup #
 class MyModelView(ModelView):
