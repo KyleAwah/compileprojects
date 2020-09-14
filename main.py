@@ -112,12 +112,12 @@ class MyAdminIndexView(AdminIndexView):
     return redirect(url_for('login'))
 
 # First Setup Admin View Pages#
-admin = Admin(app)
-admin.add_view(ModelView(user, db.session))
+#admin = Admin(app)
+#admin.add_view(ModelView(user, db.session))
 
 # Normal Admin View Pages #
-#admin = Admin(app, index_view=MyAdminIndexView())
-#admin.add_view(MyModelView(user, db.session))
+admin = Admin(app, index_view=MyAdminIndexView())
+admin.add_view(MyModelView(user, db.session))
 admin.add_view(MyModelView(product, db.session))
 admin.add_view(MyModelView(orders, db.session))
 admin.add_view(MyModelView(wish_list, db.session))
