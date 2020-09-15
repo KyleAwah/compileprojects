@@ -44,15 +44,7 @@
             </div>
         </div>
         
-        		{% if current_user.is_authenticated == False %}
-		<div class="ad">
-    </div>
-		{% endif %}
-
-		{% if current_user.is_premium == False %}
-		<div class="ad">
-    </div>
-		{% endif %}
+        		
 
         <h1 class="titles_about_me title_2"> WHERE ARE YOU FROM? </h1>
 
@@ -76,15 +68,6 @@
             </div>
         </div>
         
-       		{% if current_user.is_authenticated == False %}
-		<div class="ad">
-    </div>
-		{% endif %}
-
-		{% if current_user.is_premium == False %}
-		<div class="ad">
-    </div>
-		{% endif %}
 
         <h1 class="titles_about_me title_3"> WHY DO THIS?</h1>
 
@@ -158,15 +141,7 @@
     </div>
 
 		<br><br>
-    		{% if current_user.is_authenticated == False %}
-		<div class="ad">
-    </div>
-		{% endif %}
-
-		{% if current_user.is_premium == False %}
-		<div class="ad">
-    </div>
-		{% endif %}
+    		
 		
 {% endblock %}
 
