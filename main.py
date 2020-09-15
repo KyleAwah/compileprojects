@@ -284,15 +284,6 @@ def legal_purchase():
         resp = 'yes'
     return render_template('main_legal_purchasing.html', agreement=resp)
 
-@app.route('/legal/refund', methods=['GET'])
-def legal_refund():
-    agreement = request.cookies.get('cookie-policy')
-    if agreement == None:
-        resp = 'no'
-    if agreement == 'AGREE':
-        resp = 'yes'
-    return render_template('main_legal_refund.html', agreement=resp)
-
 @app.route('/legal/free_app', methods=['GET'])
 def legal_free_app():
     agreement = request.cookies.get('cookie-policy')
